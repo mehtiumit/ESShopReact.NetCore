@@ -33,6 +33,7 @@ namespace ESShopReact.NetCore
         {
             if (env.IsDevelopment())
             {
+                ///
                 app.UseDeveloperExceptionPage();
             }
 
