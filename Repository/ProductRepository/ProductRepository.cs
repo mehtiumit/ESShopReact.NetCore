@@ -76,6 +76,14 @@ namespace ESShopReact.NetCore.Repository.ProductRepository
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<List<GetProductDto>>> GetProductsByCategory(int categoryID)
+        {
+            ServiceResponse<List<GetProductDto>> serviceResponse = new ServiceResponse<List<GetProductDto>>();
+            List<Product> dbProducts = await _context.Products.Where(c => c.CategoryID == categoryID).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDto>(p)).ToList();
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<GetProductDto>> UpdateProduct(UpdateProductDto updatedProduct)
         {
             ServiceResponse<GetProductDto> serviceResponse = new ServiceResponse<GetProductDto>();
