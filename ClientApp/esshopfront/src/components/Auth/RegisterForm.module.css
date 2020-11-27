@@ -1,0 +1,10 @@
+.container {
+  width: 100%;
+  height: inherit;
+  border: 2px solid blue;
+  margin-top: 1px;
+  padding: 0;
+}
+.fix {
+  margin-top: 75px;
+}

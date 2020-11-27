@@ -1,0 +1,11 @@
+.search {
+  float: left;
+  }
+.field {
+  width: auto;
+  height: auto;
+  margin-top: 17px;
+  text-align: center;
+  color: white;
+  float: right;
+}
