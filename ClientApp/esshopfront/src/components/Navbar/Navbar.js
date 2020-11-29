@@ -8,7 +8,6 @@ import {
 } from "@ant-design/icons";
 import classes from "./Navbar.module.css";
 import { Link } from "react-router-dom";
-import RegisterForm from "../Auth/RegisterForm";
 
 const { Search } = Input;
 export default class Navbar extends Component {
@@ -33,7 +32,7 @@ export default class Navbar extends Component {
               </Menu.Item>
             </Menu>
             <Menu.Item icon={<LoginOutlined />} key="3">
-              <Link to="login"> Giriş</Link>
+              <Link to="/login"> Giriş</Link>
             </Menu.Item>
             <Menu.Item icon={<FormOutlined />} key="4">
               Kaydol

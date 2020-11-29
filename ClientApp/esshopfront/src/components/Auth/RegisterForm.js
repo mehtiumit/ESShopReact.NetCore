@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import classes from "./RegisterForm.module.css";
+import Axios from "axios";
 const { Option } = Select;
 const layout = {
   labelCol: { span: 8 },
@@ -11,9 +12,49 @@ const tailLayout = {
   wrapperCol: { offset: 12, span: 12 },
 };
 export default class RegisterForm extends Component {
+  componentDidMount() {
+    console.log("props", this.props);
+  }
+  state = {
+    registerData: {
+      userName: "",
+      userSurname: "",
+      eMail: "",
+      phoneNumber: "",
+      password: "",
+    },
+  };
+
+  handleChange = (e) => {
+    this.setState({
+      ...this.state,
+      registerData: {
+        ...this.state.registerData,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
   render() {
-    const onFinish = (values) => {
-      console.log("Success:", values);
+    const onFinish = () => {
+      Axios.post("/auth/register", this.state.registerData)
+        .then((res) => {
+          notification.info({
+            message: "Kayıt işlemi başarıyla tamamlandı",
+            placement: "bottomRight",
+          });
+          this.props.history.push("/login");
+          console.log("Res", res.headers);
+          console.log("res data", res.data);
+        })
+        .catch((err) => {
+          notification.warning({
+            message: "Kayıt işlemi sırasında hata oldu",
+            placement: "bottomRight",
+          });
+          console.log("err", err);
+        });
+      console.log("State:", this.state.registerData);
     };
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
@@ -27,6 +68,13 @@ export default class RegisterForm extends Component {
         </Select>
       </Form.Item>
     );
+    const {
+      userName,
+      userSurname,
+      eMail,
+      phoneNumber,
+      password,
+    } = this.state.registerData;
     return (
       <div className={classes.container}>
         <div className={classes.fix}>
@@ -39,10 +87,14 @@ export default class RegisterForm extends Component {
           >
             <Form.Item
               label="İsim"
-              name="name"
+              name="userName"
               rules={[{ required: true, message: "Lütfen İsminizi Giriniz" }]}
             >
-              <Input />
+              <Input
+                name="userName"
+                value={userName}
+                onChange={this.handleChange}
+              />
             </Form.Item>
             <Form.Item
               label="Soyisim"
@@ -51,7 +103,11 @@ export default class RegisterForm extends Component {
                 { required: true, message: "Lütfen Soyisminizi Giriniz" },
               ]}
             >
-              <Input />
+              <Input
+                name="userSurname"
+                value={userSurname}
+                onChange={this.handleChange}
+              />
             </Form.Item>
             <Form.Item
               label="E-Mail"
@@ -60,7 +116,7 @@ export default class RegisterForm extends Component {
                 { required: true, message: "Lütfen E-Mail Adresinizi Giriniz" },
               ]}
             >
-              <Input />
+              <Input name="eMail" value={eMail} onChange={this.handleChange} />
             </Form.Item>
             <Form.Item
               name="phone"
@@ -72,14 +128,23 @@ export default class RegisterForm extends Component {
                 },
               ]}
             >
-              <Input addonBefore={prefixSelector} style={{ width: "100%" }} />
+              <Input
+                style={{ width: "100%" }}
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={this.handleChange}
+              />
             </Form.Item>
             <Form.Item
               label="Şifre"
               name="password"
               rules={[{ required: true, message: "Lütfen Şifrenizi Giriniz" }]}
             >
-              <Input.Password />
+              <Input.Password
+                onChange={this.handleChange}
+                value={password}
+                name="password"
+              />
             </Form.Item>
             <Form.Item {...tailLayout}>
               <Button icon={<PlusOutlined />} type="primary" htmlType="submit">
