@@ -1,21 +1,23 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
-import setAuthorizationToken from "../../helpers/setAuthToken";
+import { setAuthorizationToken } from "../../helpers/setAuthToken";
+import jwt from "jwt-decode";
 
-export const authStart = () => {
+const authStart = () => {
   return {
     type: actionTypes.AUTH_START,
   };
 };
 
-export const authSuccess = (user) => {
+const authSuccess = (user, token) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     payload: user,
+    idToken: token,
   };
 };
 
-export const authFail = (error) => {
+const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
     payload: error,
@@ -24,7 +26,7 @@ export const authFail = (error) => {
 
 export const login = (email, password) => {
   return (dispatch) => {
-    dispatchEvent(authStart());
+    dispatch(authStart());
     const authData = {
       email: email,
       password: password,
@@ -32,12 +34,21 @@ export const login = (email, password) => {
     axios
       .post("/auth/login", authData)
       .then((res) => {
-        localStorage.setItem("jwtToken", res.data);
+        const token = res.data;
+        const user = jwt(token); // decode your token here
+        localStorage.setItem("token", token);
+        dispatch(authSuccess(user, token));
+        /*localStorage.setItem("jwtToken", res.data);
         setAuthorizationToken(res.data);
-        dispatch(authSuccess(res.data));
+        dispatch(authSuccess(res.data));*/
       })
       .catch((err) => {
         dispatch(authFail(err));
       });
   };
+};
+
+export const logout = () => {
+  localStorage.removeItem("jwtToken");
+  setAuthorizationToken(false);
 };

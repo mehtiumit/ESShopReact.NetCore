@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Form, Input, Button } from "antd";
 import { LoginOutlined } from "@ant-design/icons";
 import classes from "./RegisterForm.module.css";
+import * as authActions from "../../redux/actions/authActions";
+import { connect } from "react-redux";
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 10 },
@@ -9,14 +11,34 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 12, span: 12 },
 };
-export default class LoginForm extends Component {
+class LoginForm extends Component {
+  state = {
+    auth: {
+      eMail: "",
+      password: "",
+    },
+  };
+
+  handleChange = (e) => {
+    this.setState({
+      ...this.state,
+      auth: {
+        ...this.state.auth,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
   render() {
-    const onFinish = (values) => {
-      console.log("Success:", values);
+    const onFinish = () => {
+      const { password, eMail } = this.state.auth;
+      this.props.login(password, eMail);
     };
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
+
+    const { eMail, password } = this.state.auth;
     return (
       <div className={classes.container}>
         <div className={classes.fix}>
@@ -34,14 +56,18 @@ export default class LoginForm extends Component {
                 { required: true, message: "Lütfen Soyisminizi Giriniz" },
               ]}
             >
-              <Input />
+              <Input name="eMail" value={eMail} onChange={this.handleChange} />
             </Form.Item>
             <Form.Item
               label="Şifre"
               name="password"
               rules={[{ required: true, message: "Lütfen Şifrenizi Giriniz" }]}
             >
-              <Input.Password />
+              <Input.Password
+                name="password"
+                value={password}
+                onChange={this.handleChange}
+              />
             </Form.Item>
             <Form.Item {...tailLayout}>
               <Button icon={<LoginOutlined />} type="primary" htmlType="submit">
@@ -54,3 +80,10 @@ export default class LoginForm extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (eMail, password) => dispatch(authActions.login(eMail, password)),
+  };
+};
+export default connect(null, mapDispatchToProps)(LoginForm);
