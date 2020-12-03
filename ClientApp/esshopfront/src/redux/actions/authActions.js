@@ -24,6 +24,14 @@ const authFail = (error) => {
   };
 };
 
+export const logout = () => {
+  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("expirationTime");
+  setAuthorizationToken(false);
+  return {
+    type: actionTypes.AUTH_LOGOUT,
+  };
+};
 export const login = (email, password) => {
   return (dispatch) => {
     dispatch(authStart());
@@ -47,11 +55,6 @@ export const login = (email, password) => {
         dispatch(authFail(err));
       });
   };
-};
-
-export const logout = () => {
-  localStorage.removeItem("jwtToken");
-  setAuthorizationToken(false);
 };
 
 export const authCheckState = () => {
