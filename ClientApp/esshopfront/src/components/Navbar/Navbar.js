@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Menu, Input } from "antd";
 import {
   ShoppingCartOutlined,
@@ -8,16 +8,23 @@ import {
 } from "@ant-design/icons";
 import classes from "./Navbar.module.css";
 import { Link } from "react-router-dom";
-
+import { connect } from "react-redux";
 const { Search } = Input;
-export default class Navbar extends Component {
+class Navbar extends Component {
+  componentDidMount() {
+    console.log("props", this.props);
+  }
+
   render() {
     const onSearch = (value) => console.log(value);
+    let profile = (
+      <div className={classes.field}>
+        <Search placeholder="Ürün Ara" onSearch={onSearch} enterButton />
+      </div>
+    );
     return (
       <div>
-        <div className={classes.field}>
-          <Search placeholder="Ürün Ara" onSearch={onSearch} enterButton />
-        </div>
+        {this.props.isAuth ? profile : null}
         <div className={classes.search}>
           <Menu theme="dark" mode="horizontal">
             <Menu
@@ -31,13 +38,18 @@ export default class Navbar extends Component {
                 <Link to="/">Anasayfa</Link>
               </Menu.Item>
             </Menu>
-            <Menu.Item icon={<LoginOutlined />} key="3">
-              <Link to="/login"> Giriş</Link>
-            </Menu.Item>
-            <Menu.Item icon={<FormOutlined />} key="4">
-              Kaydol
-              <Link to="/register" />
-            </Menu.Item>
+            {this.props.isAuth ? null : (
+              <Fragment>
+                <Menu.Item icon={<LoginOutlined />} key="3">
+                  <Link to="/login"> Giriş</Link>
+                </Menu.Item>
+                <Menu.Item icon={<FormOutlined />} key="4">
+                  Kaydol
+                  <Link to="/register" />
+                </Menu.Item>
+              </Fragment>
+            )}
+
             <Menu.Item key="2" icon={<ShoppingCartOutlined />}>
               <Link to="/cart">Sepet</Link>
             </Menu.Item>
@@ -47,3 +59,11 @@ export default class Navbar extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuthenticated,
+  };
+};
+
+export default connect(mapStateToProps, null)(Navbar);

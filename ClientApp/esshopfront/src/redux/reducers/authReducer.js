@@ -1,6 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
+  userId: "",
   user: {},
   isAuthenticated: false,
   error: false,
@@ -24,7 +25,7 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.AUTH_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        userId: action.payload.nameid,
         token: action.idToken,
         loading: false,
         isAuthenticated: true,
@@ -34,6 +35,9 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+        token: null,
+        userId: null,
+        isAuthenticated: false,
       };
     default:
       return state;

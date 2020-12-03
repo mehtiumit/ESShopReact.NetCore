@@ -36,11 +36,12 @@ export const login = (email, password) => {
       .then((res) => {
         const token = res.data;
         const user = jwt(token); // decode your token here
-        localStorage.setItem("token", token);
+        const timeValid = new Date(parseInt(user.exp) * 1000);
+        const timeCreated = new Date(parseInt(user.iat) * 1000);
+        const oneHour = (timeValid - timeCreated) / (1000 * 60 * 60);
+        localStorage.setItem("expirationTime", oneHour);
+        localStorage.setItem("jwtToken", token);
         dispatch(authSuccess(user, token));
-        /*localStorage.setItem("jwtToken", res.data);
-        setAuthorizationToken(res.data);
-        dispatch(authSuccess(res.data));*/
       })
       .catch((err) => {
         dispatch(authFail(err));
@@ -51,4 +52,31 @@ export const login = (email, password) => {
 export const logout = () => {
   localStorage.removeItem("jwtToken");
   setAuthorizationToken(false);
+};
+
+export const authCheckState = () => {
+  return (dispatch) => {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+      dispatch(logout());
+    } else {
+      const expirationDate = localStorage.getItem("expirationDate");
+      if (expirationDate === 0) {
+        dispatch(logout());
+      } else {
+        const user = jwt(token);
+        dispatch(authSuccess(user, token));
+        dispatch(checkAuthTimeout());
+      }
+    }
+  };
+};
+
+export const checkAuthTimeout = () => {
+  // JWT TOKEN VALID ONLY 1 HOUR
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, 1000 * 60 * 60);
+  };
 };

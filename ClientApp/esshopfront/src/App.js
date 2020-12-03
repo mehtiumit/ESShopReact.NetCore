@@ -8,8 +8,13 @@ import { Route, Switch } from "react-router";
 import LoginForm from "./components/Auth/LoginForm";
 import Cart from "./components/Cart/Cart";
 import classes from "./App.module.css";
+import { authCheckState } from "./redux/actions/authActions";
+import { connect } from "react-redux";
 const { Header, Content, Footer } = Layout;
-export default class App extends Component {
+class App extends Component {
+  componentDidMount() {
+    this.props.checkAuth();
+  }
   render() {
     return (
       <div>
@@ -33,3 +38,10 @@ export default class App extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    checkAuth: () => dispatch(authCheckState()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);
