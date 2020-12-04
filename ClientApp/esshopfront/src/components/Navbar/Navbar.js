@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Menu, Input } from "antd";
+import { Menu, Input, Button } from "antd";
 import {
   ShoppingCartOutlined,
   LoginOutlined,
@@ -9,17 +9,25 @@ import {
 import classes from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import Profile from "../Profile/Profile";
 const { Search } = Input;
 class Navbar extends Component {
   componentDidMount() {
     console.log("props", this.props);
   }
-
+  state = {
+    showProfile: false,
+  };
+  onShow = () => {
+    this.setState({ showProfile: !this.state.showProfile });
+  };
   render() {
-    const onSearch = (value) => console.log(value);
     let profile = (
       <div className={classes.field}>
-        <Search placeholder="Ürün Ara" onSearch={onSearch} enterButton />
+        <Button onClick={this.onShow}>Go to Profile</Button>
+        {this.state.showProfile ? (
+          <Profile onShow={this.onShow}></Profile>
+        ) : null}
       </div>
     );
     return (
@@ -49,7 +57,6 @@ class Navbar extends Component {
                 </Menu.Item>
               </Fragment>
             )}
-
             <Menu.Item key="2" icon={<ShoppingCartOutlined />}>
               <Link to="/cart">Sepet</Link>
             </Menu.Item>

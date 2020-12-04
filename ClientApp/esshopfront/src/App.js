@@ -10,6 +10,7 @@ import Cart from "./components/Cart/Cart";
 import classes from "./App.module.css";
 import { authCheckState } from "./redux/actions/authActions";
 import { connect } from "react-redux";
+import PrivateNotLoginRoute from "./components/routes/PrivateNotLoginRoute";
 const { Header, Content, Footer } = Layout;
 class App extends Component {
   componentDidMount() {
@@ -24,8 +25,8 @@ class App extends Component {
           </Header>
           <Content className={classes.container}>
             <Switch>
-              <Route path="/register" component={RegisterForm} />
-              <Route path="/login" component={LoginForm} />
+              <PrivateNotLoginRoute path="/register" component={RegisterForm} />
+              <PrivateNotLoginRoute path="/login" component={LoginForm} />
               <Route path="/cart" component={Cart} />
               <Route path="/" exact component={Main} />
             </Switch>

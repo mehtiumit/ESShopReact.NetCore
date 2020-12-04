@@ -33,6 +33,7 @@ class LoginForm extends Component {
     const onFinish = () => {
       const { password, eMail } = this.state.auth;
       this.props.login(password, eMail);
+      this.props.history.push("/");
     };
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
