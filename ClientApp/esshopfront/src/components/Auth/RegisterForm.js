@@ -3,7 +3,7 @@ import { Form, Input, Button, Select, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import classes from "./RegisterForm.module.css";
 import Axios from "axios";
-const { Option } = Select;
+
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 10 },
@@ -59,15 +59,6 @@ export default class RegisterForm extends Component {
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
-    const prefixSelector = (
-      <Form.Item name="prefix" noStyle>
-        <Select style={{ width: 70 }}>
-          <Option value="90">+90</Option>
-          <Option value="1">+1</Option>
-          <Option value="44">+44</Option>
-        </Select>
-      </Form.Item>
-    );
     const {
       userName,
       userSurname,

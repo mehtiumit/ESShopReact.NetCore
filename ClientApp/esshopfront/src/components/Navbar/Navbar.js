@@ -45,7 +45,6 @@ class Navbar extends Component {
         {this.state.showProfile ? profileForShow : null}
       </div>
     );
-
     return (
       <div>
         {profile}

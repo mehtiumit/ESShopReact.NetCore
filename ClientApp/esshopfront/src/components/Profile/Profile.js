@@ -9,6 +9,8 @@ import {
   CloseCircleOutlined,
 } from "@ant-design/icons";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../../redux/actions/authActions";
 const { Text } = Typography;
 class Profile extends Component {
   render() {
@@ -16,26 +18,40 @@ class Profile extends Component {
       {
         title: "Keşfet",
         icon: <HomeFilled style={{ fontSize: "24px" }} />,
+        dest: "/",
+        onClick: () => this.props.onShow(),
       },
       {
         title: "Profilim",
         icon: <UserOutlined style={{ fontSize: "24px" }} />,
+        dest: "/profile",
+        onClick: () => this.props.onShow(),
       },
       {
         title: "Hakkında",
         icon: <InfoCircleFilled style={{ fontSize: "24px" }} />,
+        dest: "/about",
+        onClick: () => this.props.onShow(),
       },
       {
         title: "Şartlar ve koşullar",
         icon: <ReadFilled style={{ fontSize: "24px" }} />,
+        dest: "/termsandcontitions",
+        onClick: () => this.props.onShow(),
       },
       {
         title: "Gizlilik Politikası",
         icon: <InsuranceFilled style={{ fontSize: "24px" }} />,
+        dest: "/privacypolicy",
+        onClick: () => this.props.onShow(),
       },
       {
         title: "Çıkış Yap",
         icon: <CloseCircleOutlined style={{ fontSize: "24px" }} />,
+        onClick: () => {
+          this.props.onShow();
+          this.props.logOut();
+        },
       },
     ];
 
@@ -66,8 +82,11 @@ class Profile extends Component {
           dataSource={data}
           style={{ width: "100%", marginTop: "5px", marginLeft: "5px" }}
           renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta avatar={item.icon} title={item.title} />
+            <List.Item onClick={() => item.onClick()}>
+              <List.Item.Meta
+                avatar={item.icon}
+                title={<Link to={item.dest}>{item.title}</Link>}
+              />
             </List.Item>
           )}
         />
@@ -82,4 +101,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Profile);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut: () => dispatch(logout()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

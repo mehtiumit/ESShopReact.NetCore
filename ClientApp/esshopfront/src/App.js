@@ -12,6 +12,7 @@ import { authCheckState, getUserData } from "./redux/actions/authActions";
 import { connect } from "react-redux";
 import PrivateNotLoginRoute from "./components/routes/PrivateNotLoginRoute";
 import { isLogin } from "./utils/Utils";
+import InfoPage from "./components/Info/InfoPage";
 
 const { Header, Content, Footer } = Layout;
 
@@ -40,6 +41,7 @@ class App extends Component {
               />
               <PrivateNotLoginRoute path="/login" component={LoginForm} exact />
               <Route path="/cart" component={Cart} />
+              <Route path="/about" component={InfoPage} />
               <Route path="/" exact component={Main} />
             </Switch>
           </Content>
