@@ -1,4 +1,5 @@
 ﻿using ESShopReact.NetCore.Dtos;
+using ESShopReact.NetCore.Dtos.UserLogin;
 using ESShopReact.NetCore.Models;
 using ESShopReact.NetCore.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -73,5 +74,11 @@ namespace ESShopReact.NetCore.Controllers
             var tokenString = tokenHandler.WriteToken(token);
             return Ok(tokenString);
         }
+        [HttpGet("getuser/{userId}")]
+        public async Task<IActionResult> GetUser(int userId)
+        {
+            return Ok(await _authRepository.UserInfo(userId));
+        }
     }
+
 }

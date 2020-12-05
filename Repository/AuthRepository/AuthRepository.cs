@@ -1,4 +1,6 @@
-﻿using ESShopReact.NetCore.Data;
+﻿using AutoMapper;
+using ESShopReact.NetCore.Data;
+using ESShopReact.NetCore.Dtos.UserLogin;
 using ESShopReact.NetCore.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -9,10 +11,12 @@ namespace ESShopReact.NetCore.Repository
     {
 
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public AuthRepository(DataContext context)
+        public AuthRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public async Task<User> Login(string eMail, string password)
         {
@@ -71,6 +75,14 @@ namespace ESShopReact.NetCore.Repository
             }
 
             return false;
+        }
+
+        public async Task<ServiceResponse<UserForInfoDto>> UserInfo(int userId)
+        {
+            ServiceResponse<UserForInfoDto> serviceResponse = new ServiceResponse<UserForInfoDto>();
+            User dbUser = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
+            serviceResponse.Data = _mapper.Map<UserForInfoDto>(dbUser);
+            return serviceResponse;
         }
     }
 }

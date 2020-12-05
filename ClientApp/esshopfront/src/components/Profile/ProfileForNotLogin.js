@@ -6,20 +6,15 @@ import {
   InfoCircleFilled,
   ReadFilled,
   InsuranceFilled,
-  CloseCircleOutlined,
 } from "@ant-design/icons";
-import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 const { Text } = Typography;
-class Profile extends Component {
+class ProfileForNotLogin extends Component {
   render() {
     const data = [
       {
         title: "Keşfet",
         icon: <HomeFilled style={{ fontSize: "24px" }} />,
-      },
-      {
-        title: "Profilim",
-        icon: <UserOutlined style={{ fontSize: "24px" }} />,
       },
       {
         title: "Hakkında",
@@ -33,12 +28,7 @@ class Profile extends Component {
         title: "Gizlilik Politikası",
         icon: <InsuranceFilled style={{ fontSize: "24px" }} />,
       },
-      {
-        title: "Çıkış Yap",
-        icon: <CloseCircleOutlined style={{ fontSize: "24px" }} />,
-      },
     ];
-
     return (
       <Drawer
         title="Hesabım"
@@ -56,9 +46,11 @@ class Profile extends Component {
             icon={<UserOutlined />}
             style={{ display: "block" }}
           />
-          <Text>Hoş Geldiniz Sayın</Text>
+          <Text>Giriş Yapmadın</Text>
           <br></br>
-          <Text type="warning">{this.props.userData.userName}</Text>
+          <Link to="/login" onClick={this.props.onShow}>
+            Giriş Yapmak İçin
+          </Link>
         </div>
         <Divider style={{ backgroundColor: "green" }} />
         <List
@@ -67,7 +59,10 @@ class Profile extends Component {
           style={{ width: "100%", marginTop: "5px", marginLeft: "5px" }}
           renderItem={(item) => (
             <List.Item>
-              <List.Item.Meta avatar={item.icon} title={item.title} />
+              <List.Item.Meta
+                avatar={item.icon}
+                title={<Link to="/">{item.title}</Link>}
+              />
             </List.Item>
           )}
         />
@@ -76,10 +71,4 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userData: state.authReducer.user,
-  };
-};
-
-export default connect(mapStateToProps, null)(Profile);
+export default ProfileForNotLogin;

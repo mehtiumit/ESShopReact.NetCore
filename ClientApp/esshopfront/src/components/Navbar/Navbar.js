@@ -1,38 +1,54 @@
 import React, { Component, Fragment } from "react";
-import { Menu, Input, Button } from "antd";
+import { Menu } from "antd";
 import {
   ShoppingCartOutlined,
   LoginOutlined,
   HomeOutlined,
   FormOutlined,
+  MenuFoldOutlined,
 } from "@ant-design/icons";
 import classes from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Profile from "../Profile/Profile";
-const { Search } = Input;
+import { getUserData } from "../../redux/actions/authActions";
+import ProfileForNotLogin from "../Profile/ProfileForNotLogin";
+import { isLogin } from "../../utils/Utils";
+
 class Navbar extends Component {
   componentDidMount() {
     console.log("props", this.props);
   }
   state = {
     showProfile: false,
+    flag: false,
   };
   onShow = () => {
     this.setState({ showProfile: !this.state.showProfile });
   };
   render() {
+    let profileForShow = (
+      <Fragment>
+        {isLogin() ? (
+          <Profile onShow={this.onShow}></Profile>
+        ) : (
+          <ProfileForNotLogin onShow={this.onShow}></ProfileForNotLogin>
+        )}
+      </Fragment>
+    );
     let profile = (
       <div className={classes.field}>
-        <Button onClick={this.onShow}>Go to Profile</Button>
-        {this.state.showProfile ? (
-          <Profile onShow={this.onShow}></Profile>
-        ) : null}
+        <MenuFoldOutlined
+          onClick={this.onShow}
+          style={{ fontSize: "32px", color: "white" }}
+        />
+        {this.state.showProfile ? profileForShow : null}
       </div>
     );
+
     return (
       <div>
-        {this.props.isAuth ? profile : null}
+        {profile}
         <div className={classes.search}>
           <Menu theme="dark" mode="horizontal">
             <Menu
@@ -66,11 +82,16 @@ class Navbar extends Component {
     );
   }
 }
-
 const mapStateToProps = (state) => {
   return {
     isAuth: state.authReducer.isAuthenticated,
+    userId: state.authReducer.userId,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserData: (userId) => dispatch(getUserData(userId)),
   };
 };
 
-export default connect(mapStateToProps, null)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

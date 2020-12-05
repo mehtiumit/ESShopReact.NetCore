@@ -2,6 +2,8 @@
 using ESShopReact.NetCore.Data;
 using ESShopReact.NetCore.Dtos;
 using ESShopReact.NetCore.Dtos.Product;
+using ESShopReact.NetCore.Dtos.UserLogin;
+using ESShopReact.NetCore.Models;
 
 namespace ESShopReact.NetCore
 {
@@ -11,6 +13,7 @@ namespace ESShopReact.NetCore
         {
             CreateMap<Product, GetProductDto>();
             CreateMap<AddProductDto, Product>();
+            CreateMap<User, UserForInfoDto>();
         }
     }
 }

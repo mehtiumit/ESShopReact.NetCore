@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -9,11 +9,8 @@ import {
 } from "@ant-design/icons";
 import ProductCard from "../ProductCard/ProductCard";
 import classes from "./Main.module.css";
-import CustomFooter from "../Footer/CustomFooter";
-
-const { Content, Sider, Footer } = Layout;
+const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
-
 export default class Main extends Component {
   state = {
     collapsed: false,
@@ -27,7 +24,7 @@ export default class Main extends Component {
     const { collapsed } = this.state;
     return (
       <Layout className={classes.container}>
-        <Sider  collapsed={collapsed} onCollapse={this.onCollapse}>
+        <Sider collapsed={collapsed} onCollapse={this.onCollapse}>
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
             <Menu.Item key="1" icon={<PieChartOutlined />}>

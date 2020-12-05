@@ -39,6 +39,16 @@ const authReducer = (state = initialState, action) => {
         userId: null,
         isAuthenticated: false,
       };
+    case actionTypes.GET_USER_DATA:
+      return {
+        ...state,
+        user: action.payload.data,
+      };
+    case actionTypes.GET_USER_DATA_FAIL:
+      return {
+        ...state,
+        error: action.payload.error,
+      };
     default:
       return state;
   }
