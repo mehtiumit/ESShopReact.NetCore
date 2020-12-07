@@ -27,29 +27,31 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
-        <Layout className="layout">
-          <Header>
-            <Navbar />
-          </Header>
-          <Content className={classes.container}>
-            <Switch>
-              <PrivateNotLoginRoute
-                path="/register"
-                component={RegisterForm}
-                exact
-              />
-              <PrivateNotLoginRoute path="/login" component={LoginForm} exact />
-              <Route path="/cart" component={Cart} />
-              <Route path="/about" component={InfoPage} />
-              <Route path="/" exact component={Main} />
-            </Switch>
-          </Content>
-          <Footer style={{ backgroundColor: "#333333" }}>
-            <CustomFooter></CustomFooter>
-          </Footer>
-        </Layout>
-      </div>
+      <Layout className={classes.containerBody}>
+        <Header
+          style={{
+            height: "auto",
+            padding: "0 10px",
+            marginBottom: "10px",
+            lineHeight: "64px",
+            background: "#FFFFFF",
+            border: "1px gray",
+            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <Navbar />
+        </Header>
+        <Content>
+          <Switch>
+            <Route path="/cart" component={Cart} />
+            <Route path="/about" component={InfoPage} />
+            <Route path="/" exact component={Main} />
+          </Switch>
+        </Content>
+        <Footer style={{ backgroundColor: "#333333" }}>
+          <CustomFooter></CustomFooter>
+        </Footer>
+      </Layout>
     );
   }
 }

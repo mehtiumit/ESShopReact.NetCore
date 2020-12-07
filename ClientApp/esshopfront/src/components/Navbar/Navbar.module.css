@@ -1,11 +1,22 @@
 .search {
   float: left;
-  }
+}
 .field {
   width: auto;
   height: auto;
-  margin-top: 6px;
+  margin-top: 1px;
   text-align: center;
   color: white;
   float: right;
+  padding-left: 1px;
+}
+.icon {
+  width: auto;
+  height: auto;
+  margin-top: 22px;
+  text-align: center;
+  color: white;
+  float: right;
+  padding-right: 8px;
+  font-size: 18px;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Divider, Tabs, Typography, Collapse } from "antd";
 import { GithubOutlined } from "@ant-design/icons";
-const { Title, Link, Paragraph } = Typography;
+const { Title, Link } = Typography;
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
@@ -11,7 +11,7 @@ export default class InfoPage extends Component {
     key: 1,
   };
   callback = (key) => {
-    this.setState({ key: key });
+    this.setState({ key: parseInt(key) });
   };
 
   render() {
@@ -100,7 +100,7 @@ export default class InfoPage extends Component {
             <Title style={{ margin: "0", padding: "2px" }} level={2}>
               Sıkça Sorulan Sorular
             </Title>
-            <Title style={{ margin: "0", padding: "2px" }} level={4}>
+            <Title  style={{ margin: "0", padding: "2px" }} level={4}>
               <Link
                 editable={{
                   icon: (
@@ -123,7 +123,6 @@ export default class InfoPage extends Component {
             style={{
               margin: "auto",
               padding: "auto",
-              border: "1px solid ",
               width: "auto",
               height: "auto",
             }}
@@ -135,7 +134,15 @@ export default class InfoPage extends Component {
               type="card"
               size="large"
               tabBarGutter={0}
-              tabBarStyle={{ width: "100%", height: "100%" }}
+              tabBarStyle={{
+                width: "100%",
+                height: "100%",
+              }}
+              style={{
+                border: "1px gray",
+                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.4)",
+                borderRadius: "5px",
+              }}
               onChange={this.callback}
             >
               <TabPane tab="Hakkında" key="1"></TabPane>
@@ -148,16 +155,19 @@ export default class InfoPage extends Component {
             style={{
               height: "auto",
               margin: "auto",
+              border: "1px gray",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.4)",
+              borderRadius: "5px",
             }}
             span={12}
           >
-            {key == 1
+            {key === 1
               ? about
-              : key == 2
+              : key === 2
               ? userAgreement
-              : key == 3
+              : key === 3
               ? questionAndanswer
-              : key == 4
+              : key === 4
               ? payment
               : key}
           </Col>

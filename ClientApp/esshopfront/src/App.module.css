@@ -1,5 +1,16 @@
 .container {
-  width: auto;
-  height: 81vh;
+  width: 100%;
+  height: 100%;
   background-color: white;
+}
+.containerBody {
+  width: auto;
+  height: 1000px;
+}
+@media screen and (max-height: 800px) {
+  .containerBody {
+    width: auto;
+    height: 1100px;
+    background-color: hotpink;
+  }
 }

@@ -1,12 +1,11 @@
 .container {
-  min-height: 280px;
-  width: 100%;
+  height: auto;
+  width: auto;
   height: inherit;
-  background-color: rebeccapurple;
   padding: 0;
   margin: 0;
 }
-@media screen and (max-height: 500px) {
+@media screen and (min-height: 500px) {
   .container {
     width: auto;
     height: auto;

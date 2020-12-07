@@ -1,24 +1,23 @@
 import React, { Component } from "react";
 import { Form, Input, Button } from "antd";
 import { LoginOutlined } from "@ant-design/icons";
-import classes from "./RegisterForm.module.css";
 import * as authActions from "../../redux/actions/authActions";
 import { connect } from "react-redux";
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 10 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 12, span: 12 },
-};
+
 class LoginForm extends Component {
   state = {
     auth: {
       eMail: "",
       password: "",
     },
+    hover: false,
   };
-
+  handleMouseEnter = () => {
+    this.setState({ hover: true });
+  };
+  handleMouseLeave = () => {
+    this.setState({ hover: false });
+  };
   handleChange = (e) => {
     this.setState({
       ...this.state,
@@ -33,50 +32,67 @@ class LoginForm extends Component {
     const onFinish = () => {
       const { password, eMail } = this.state.auth;
       this.props.login(password, eMail);
-      this.props.history.push("/");
+      this.props.onShowModal();
     };
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
-
+    const { hover } = this.state;
     const { eMail, password } = this.state.auth;
     return (
-      <div className={classes.container}>
-        <div className={classes.fix}>
-          <Form
-            {...layout}
-            name="basic"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+      <div style={{ marginTop: "5%", width: "auto", height: "auto" }}>
+        <Form
+          name="basic"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <Form.Item
+            name="email"
+            style={{ marginLeft: "20%", width: "296px", height: "42px" }}
           >
-            <Form.Item
-              label="E-Mail"
-              name="email"
-              rules={[
-                { required: true, message: "Lütfen Soyisminizi Giriniz" },
-              ]}
-            >
-              <Input name="eMail" value={eMail} onChange={this.handleChange} />
-            </Form.Item>
-            <Form.Item
-              label="Şifre"
+            <Input
+              name="eMail"
+              placeholder="Email"
+              value={eMail}
+              onChange={this.handleChange}
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            style={{ marginLeft: "20%", width: "296px", height: "42px" }}
+          >
+            <Input.Password
               name="password"
-              rules={[{ required: true, message: "Lütfen Şifrenizi Giriniz" }]}
+              value={password}
+              onChange={this.handleChange}
+              placeholder="Şifre"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              icon={<LoginOutlined />}
+              style={{
+                marginLeft: "20%",
+                color: "white",
+                backgroundColor: "black",
+                borderColor: "black",
+                width: "296px",
+                height: "42px",
+                ...(hover && {
+                  backgroundColor: "white",
+                  color: "black",
+                }),
+              }}
+              onMouseEnter={this.handleMouseEnter}
+              onMouseLeave={this.handleMouseLeave}
+              type="primary"
+              htmlType="submit"
             >
-              <Input.Password
-                name="password"
-                value={password}
-                onChange={this.handleChange}
-              />
-            </Form.Item>
-            <Form.Item {...tailLayout}>
-              <Button icon={<LoginOutlined />} type="primary" htmlType="submit">
-                Giriş
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
+              Giriş
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     );
   }
