@@ -1,10 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Menu, Row, Col, Input, Avatar, Modal } from "antd";
 import {
-  ShoppingCartOutlined,
-  LoginOutlined,
   HomeOutlined,
-  FormOutlined,
   SearchOutlined,
   MenuFoldOutlined,
   HeartFilled,
@@ -20,16 +17,22 @@ import ProfileForNotLogin from "../Profile/ProfileForNotLogin";
 import { isLogin } from "../../utils/Utils";
 import LoginForm from "../Auth/LoginForm";
 import RegisterForm from "../Auth/RegisterForm";
+import CartDrawer from "../Cart/CartDrawer";
 
 class Navbar extends Component {
   state = {
     showProfile: false,
     loginModal: false,
     isUser: false,
+    showCart: true,
   };
   onShow = () => {
     this.setState({ showProfile: !this.state.showProfile });
   };
+  showCart = () => {
+    this.setState({ showCart: !this.state.showCart });
+  };
+
   onShowModal = () => {
     this.setState({ loginModal: !this.state.loginModal });
   };
@@ -93,7 +96,10 @@ class Navbar extends Component {
             onClick={() => this.setState({ loginModal: true })}
             className={classes.icon}
           />
-          <ShoppingOutlined className={classes.icon} />
+          <ShoppingOutlined
+            onClick={this.showCart}
+            className={classes.icon}
+          ></ShoppingOutlined>
           <HeartFilled className={classes.icon}></HeartFilled>
           <Modal
             onCancel={() => this.setState({ loginModal: false })}
@@ -119,6 +125,10 @@ class Navbar extends Component {
               {this.state.isUser ? userText : notUserText}
             </div>
           </Modal>
+
+          {this.state.showCart ? (
+            <CartDrawer onShow={this.showCart}></CartDrawer>
+          ) : null}
         </Col>
       </Row>
     );

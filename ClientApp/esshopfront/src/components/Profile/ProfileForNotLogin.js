@@ -43,7 +43,7 @@ class ProfileForNotLogin extends Component {
         placement="right"
         closable={false}
         onClose={this.props.onShow}
-        visible={true}
+        visible={this.props.onShow}
         key="right"
         bodyStyle={{ padding: "10px" }}
       >
