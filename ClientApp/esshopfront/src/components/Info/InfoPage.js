@@ -89,9 +89,12 @@ export default class InfoPage extends Component {
     return (
       <div
         style={{
+          display: "flex",
+          flexDirection: "column",
           width: "100%",
-          height: "100%",
           backgroundColor: "white",
+          height: "auto",
+          minHeight: "100vh",
         }}
       >
         <Divider orientation="center">Yardım</Divider>
@@ -100,7 +103,7 @@ export default class InfoPage extends Component {
             <Title style={{ margin: "0", padding: "2px" }} level={2}>
               Sıkça Sorulan Sorular
             </Title>
-            <Title  style={{ margin: "0", padding: "2px" }} level={4}>
+            <Title style={{ margin: "0", padding: "2px" }} level={4}>
               <Link
                 editable={{
                   icon: (
@@ -118,60 +121,70 @@ export default class InfoPage extends Component {
             </Title>
           </Col>
         </Row>
-        <Row style={{ width: "100%", height: "100%" }} justify="center">
-          <Col
-            style={{
-              margin: "auto",
-              padding: "auto",
-              width: "auto",
-              height: "auto",
-            }}
-            span={8}
-          >
-            <Tabs
-              tabPosition="left"
-              defaultActiveKey="1"
-              type="card"
-              size="large"
-              tabBarGutter={0}
-              tabBarStyle={{
-                width: "100%",
-                height: "100%",
-              }}
+        <div
+          style={{
+            margin: "auto",
+            height: "auto",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Row style={{ height: "100%" }} align="center" justify="center">
+            <Col
               style={{
+                margin: "auto",
+                padding: "auto",
+                width: "auto",
+                height: "auto",
+              }}
+              span={8}
+            >
+              <Tabs
+                tabPosition="left"
+                defaultActiveKey="1"
+                type="card"
+                size="large"
+                tabBarGutter={0}
+                tabBarStyle={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                style={{
+                  border: "1px gray",
+                  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.4)",
+                  borderRadius: "5px",
+                }}
+                onChange={this.callback}
+              >
+                <TabPane tab="Hakkında" key="1"></TabPane>
+                <TabPane tab="Kullanıcı Sözleşmesi" key="2"></TabPane>
+                <TabPane tab="Başka bir Soru ve cevabı" key="3"></TabPane>
+                <TabPane tab="Ödeme" key="4"></TabPane>
+              </Tabs>
+            </Col>
+            <Col
+              style={{
+                height: "auto",
+                margin: "auto",
                 border: "1px gray",
                 boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.4)",
                 borderRadius: "5px",
               }}
-              onChange={this.callback}
+              span={12}
             >
-              <TabPane tab="Hakkında" key="1"></TabPane>
-              <TabPane tab="Kullanıcı Sözleşmesi" key="2"></TabPane>
-              <TabPane tab="Başka bir Soru ve cevabı" key="3"></TabPane>
-              <TabPane tab="Ödeme" key="4"></TabPane>
-            </Tabs>
-          </Col>
-          <Col
-            style={{
-              height: "auto",
-              margin: "auto",
-              border: "1px gray",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.4)",
-              borderRadius: "5px",
-            }}
-            span={12}
-          >
-            {key === 1
-              ? about
-              : key === 2
-              ? userAgreement
-              : key === 3
-              ? questionAndanswer
-              : key === 4
-              ? payment
-              : key}
-          </Col>
-        </Row>
+              {key === 1
+                ? about
+                : key === 2
+                ? userAgreement
+                : key === 3
+                ? questionAndanswer
+                : key === 4
+                ? payment
+                : key}
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }

@@ -25,12 +25,12 @@ class App extends Component {
   }
   render() {
     return (
-      <Layout className={classes.containerBody}>
+      <Layout>
         <Header
           style={{
             height: "auto",
             padding: "0 10px",
-            marginBottom: "10px",
+            marginBottom: "5px",
             lineHeight: "64px",
             background: "#FFFFFF",
             border: "1px gray",
@@ -39,7 +39,7 @@ class App extends Component {
         >
           <Navbar />
         </Header>
-        <Content>
+        <Content className={classes.containerBody}>
           <Switch>
             <Route path="/cart" component={Cart} />
             <Route path="/about" component={InfoPage} />

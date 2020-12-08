@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Row, Col, Drawer, Typography, Avatar } from "antd";
+import { Row, Col, Drawer, Typography, Avatar, Tooltip } from "antd";
 import { ShoppingOutlined } from "@ant-design/icons";
-
+import { VscClose } from "react-icons/vsc";
 const { Title } = Typography;
 export default class CartDrawer extends Component {
   render() {
@@ -14,6 +14,13 @@ export default class CartDrawer extends Component {
         width="448"
         bodyStyle={{ backgroundColor: "#000000" }}
       >
+        <Tooltip title="Kapat">
+          <VscClose
+            style={{ color: "white", float: "left" }}
+            onClick={() => this.props.onShow()}
+            fontSize={24}
+          ></VscClose>
+        </Tooltip>
         <Row style={{ width: "100%", height: "100%" }} justify="center">
           <Row align="middle">
             <Col span={24}>

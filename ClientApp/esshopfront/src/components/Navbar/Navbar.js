@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Menu, Row, Col, Input, Avatar, Modal } from "antd";
+import { Menu, Row, Col, Input, Avatar, Modal, Button } from "antd";
 import {
   HomeOutlined,
   SearchOutlined,
@@ -18,13 +18,13 @@ import { isLogin } from "../../utils/Utils";
 import LoginForm from "../Auth/LoginForm";
 import RegisterForm from "../Auth/RegisterForm";
 import CartDrawer from "../Cart/CartDrawer";
-
+import { ImSpades } from "react-icons/im";
 class Navbar extends Component {
   state = {
     showProfile: false,
     loginModal: false,
     isUser: false,
-    showCart: true,
+    showCart: false,
   };
   onShow = () => {
     this.setState({ showProfile: !this.state.showProfile });
@@ -75,8 +75,14 @@ class Navbar extends Component {
       <Row>
         <Col span={8}>
           <Menu theme="light" mode="horizontal">
-            <Menu.Item icon={<HomeOutlined />} key="1">
+            <Menu.Item key="1">
               <Link to="/">Anasayfa</Link>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link to="/">Elbiseler</Link>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Link to="/">Aksesuar</Link>
             </Menu.Item>
           </Menu>
         </Col>
