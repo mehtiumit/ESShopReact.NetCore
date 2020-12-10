@@ -1,7 +1,10 @@
-﻿using ESShopReact.NetCore.Data;
+﻿using AutoMapper;
+using ESShopReact.NetCore.Data;
+using ESShopReact.NetCore.Dtos.Category;
 using ESShopReact.NetCore.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ESShopReact.NetCore.Repository
@@ -9,48 +12,20 @@ namespace ESShopReact.NetCore.Repository
     public class AppRepository : IAppRepository
     {
         private DataContext _context;
-        public AppRepository(DataContext context)
+        private readonly IMapper _mapper;
+        public AppRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public void Add<T>(T entity) where T : class
+        public async Task<ServiceResponse<List<GetCategoryDto>>> GetCategories()
         {
-            _context.Add(entity);
-        }
+            ServiceResponse<List<GetCategoryDto>> serviceResponse = new ServiceResponse<List<GetCategoryDto>>();
+            List<Category> dbCategories = await _context.Categories.ToListAsync();
+            serviceResponse.Data = dbCategories.Select(c => _mapper.Map<GetCategoryDto>(c)).ToList();
+            return serviceResponse;
 
-        public void Delete<T>(T entity) where T : class
-        {
-
-            _context.Remove(entity);
-        }
-
-        public async Task<List<Product>> GetAllProducts()
-        {
-            var products = await _context.Products.ToListAsync();
-            return products;
-        }
-
-        public Task<Order> GetOrderDetail(int orderDetailID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<Product> GetProductById(int productID)
-        {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductID == productID);
-            return product;
-        }
-
-        public async Task<User> GetUserDetail(int userID)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userID);
-            return user;
-        }
-
-        public bool SaveAll()
-        {
-            return _context.SaveChanges() > 0;
         }
     }
 }

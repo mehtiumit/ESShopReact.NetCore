@@ -94,7 +94,7 @@ namespace ESShopReact.NetCore.Repository.ProductRepository
                 {
                     product.ProductName = updatedProduct.ProductName;
                     product.ListPrice = updatedProduct.ListPrice;
-                    product.Quantity = updatedProduct.Quantity;
+                    product.UnitsInStock = updatedProduct.UnitsInStock;
                     product.CategoryID = updatedProduct.CategoryID;
                     product.Description = updatedProduct.Description;
                     _context.Products.Update(product);

@@ -14,14 +14,13 @@ namespace ESShopReact.NetCore.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IAppRepository _appRepository;
-        private readonly IProductRepository _productRepository;
-        private readonly IMapper _mapper;
 
-        public ProductController(IAppRepository appRepository, IMapper mapper, IProductRepository productRepository)
+        private readonly IProductRepository _productRepository;
+
+
+        public ProductController(IProductRepository productRepository)
         {
-            _appRepository = appRepository;
-            _mapper = mapper;
+
             _productRepository = productRepository;
         }
         [HttpGet()]
