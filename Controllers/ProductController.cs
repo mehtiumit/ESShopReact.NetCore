@@ -20,7 +20,6 @@ namespace ESShopReact.NetCore.Controllers
 
         public ProductController(IProductRepository productRepository)
         {
-
             _productRepository = productRepository;
         }
         [HttpGet()]

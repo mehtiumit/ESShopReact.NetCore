@@ -1,0 +1,20 @@
+.footerListStyle {
+  list-style: none;
+}
+.footerListStyle > li {
+  padding: 0 0 16px 0;
+}
+.footerContainer {
+  width: 100%;
+  background-color: white;
+  height: 100%;
+  margin: 0;
+  padding: 48px 24px;
+}
+.icon {
+  display: flex;
+  align-content: center;
+}
+.icon div {
+  margin: auto 0;
+}

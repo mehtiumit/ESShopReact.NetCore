@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar/Navbar";
 import CustomFooter from "./components/Footer/CustomFooter";
 import Main from "./components/Main/Main";
 import { Route, Switch } from "react-router";
-import Cart from "./components/Cart/Cart";
 import classes from "./App.module.css";
 import { authCheckState, getUserData } from "./redux/actions/authActions";
 import { connect } from "react-redux";
@@ -41,12 +40,11 @@ class App extends Component {
         </Header>
         <Content className={classes.containerBody}>
           <Switch>
-            <Route path="/cart" component={Cart} />
             <Route path="/about" component={InfoPage} />
             <Route path="/" exact component={Main} />
           </Switch>
         </Content>
-        <Footer style={{ backgroundColor: "#333333" }}>
+        <Footer style={{ margin: "0", padding: "0" }}>
           <CustomFooter></CustomFooter>
         </Footer>
       </Layout>

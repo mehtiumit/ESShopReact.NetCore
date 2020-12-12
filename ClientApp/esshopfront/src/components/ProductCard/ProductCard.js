@@ -11,7 +11,7 @@ class ProductCard extends React.Component {
           key={this.props.id}
           hoverable
           style={{
-            width: 300,
+            width: 250,
             textAlign: "center",
             margin: "5px 5px 5px 5px",
           }}
@@ -26,7 +26,7 @@ class ProductCard extends React.Component {
           actions={[
             <PlusOutlined
               onClick={() => {
-                console.log("props", this.props);
+                this.props.addToCart();
               }}
               key="add"
             />,

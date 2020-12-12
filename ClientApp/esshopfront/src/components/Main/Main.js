@@ -4,6 +4,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import { fetchProducts } from "../../redux/actions/productActions";
 import { connect } from "react-redux";
 import { fetchCategory } from "../../redux/actions/categoryActions";
+import { addToCart } from "../../redux/actions/cartActions";
 
 class Main extends Component {
   componentDidMount() {
@@ -11,7 +12,6 @@ class Main extends Component {
     this.props.getCategories();
   }
   handleCategory(categoryId) {
-    console.log("id", categoryId);
     this.props.getProducts(parseInt(categoryId));
   }
   render() {
@@ -66,7 +66,7 @@ class Main extends Component {
           }}
           span={16}
         >
-          <Row justify="center">
+          <Row>
             {this.props.productData.products.map((products) => (
               <ProductCard
                 key={products.productID}
@@ -76,6 +76,7 @@ class Main extends Component {
                 price={products.listPrice}
                 categoryID={products.categoryID}
                 loading={this.props.productData.loading}
+                addToCart={() => this.props.addToCart(products)}
               />
             ))}
           </Row>
@@ -102,6 +103,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getProducts: (categoryID) => dispatch(fetchProducts(categoryID)),
     getCategories: () => dispatch(fetchCategory()),
+    addToCart: (product) => dispatch(addToCart(product)),
   };
 };
 

@@ -18,6 +18,7 @@ import { isLogin } from "../../utils/Utils";
 import LoginForm from "../Auth/LoginForm";
 import RegisterForm from "../Auth/RegisterForm";
 import CartDrawer from "../Cart/CartDrawer";
+import CartWithProduct from "../Cart/CartWithProduct";
 import { ImSpades } from "react-icons/im";
 class Navbar extends Component {
   state = {
@@ -71,6 +72,25 @@ class Navbar extends Component {
       </div>
     );
 
+    let cartForShow = (
+      <Fragment>
+        {this.props.cart.length > 0 ? (
+          <CartWithProduct onShow={this.showCart}></CartWithProduct>
+        ) : (
+          <CartDrawer onShow={this.showCart}></CartDrawer>
+        )}
+      </Fragment>
+    );
+    let cart = (
+      <div className={classes.field}>
+        <ShoppingOutlined
+          onClick={this.showCart}
+          style={{ fontSize: "20px", color: "#000000" }}
+        />
+        {this.state.showCart ? cartForShow : null}
+      </div>
+    );
+
     return (
       <Row>
         <Col span={8}>
@@ -102,10 +122,7 @@ class Navbar extends Component {
             onClick={() => this.setState({ loginModal: true })}
             className={classes.icon}
           />
-          <ShoppingOutlined
-            onClick={this.showCart}
-            className={classes.icon}
-          ></ShoppingOutlined>
+          <div>{cart}</div>
           <HeartFilled className={classes.icon}></HeartFilled>
           <Modal
             onCancel={() => this.setState({ loginModal: false })}
@@ -132,9 +149,7 @@ class Navbar extends Component {
             </div>
           </Modal>
 
-          {this.state.showCart ? (
-            <CartDrawer onShow={this.showCart}></CartDrawer>
-          ) : null}
+          {this.state.showCart ? <cart /> : null}
         </Col>
       </Row>
     );
@@ -144,6 +159,7 @@ const mapStateToProps = (state) => {
   return {
     isAuth: state.authReducer.isAuthenticated,
     userId: state.authReducer.userId,
+    cart: state.cartReducer.cart,
   };
 };
 const mapDispatchToProps = (dispatch) => {

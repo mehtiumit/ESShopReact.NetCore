@@ -42,7 +42,6 @@ export default class RegisterForm extends Component {
             message: "Kayıt işlemi başarıyla tamamlandı",
             placement: "bottomRight",
           });
-          this.props.history.push("/login");
           console.log("Res", res.headers);
           console.log("res data", res.data);
         })
