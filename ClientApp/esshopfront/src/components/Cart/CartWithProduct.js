@@ -61,14 +61,14 @@ class CartWithProduct extends Component {
             <Divider style={{ backgroundColor: "black", margin: "0" }} />
             {this.props.cart.map((cartItem) => (
               <CartWithProductBody
+                key={cartItem.productID}
                 id={cartItem.productID}
                 productName={cartItem.productName}
                 price={cartItem.listPrice}
                 quantity={cartItem.quantity}
                 addQuantity={() => this.props.addToCart(cartItem)}
                 subtractQuantity={() => this.props.subtractQuantity(cartItem)}
-                instaDeleteFromCart={() => this.props.instaDeleteFromCart(cartItem)}
-                // imgUrl={cartItem.imgUrl}
+                instaDeleteFromCart={() =>this.props.instaDeleteFromCart(cartItem)}
               />
             ))}
           </Content>
@@ -83,7 +83,7 @@ class CartWithProduct extends Component {
             <div style={{ margin: "6px 6px" }}>
               <Row justify="space-between" style={{ padding: "4px 0" }}>
                 <span>Sub Total</span>
-                <span>Total Cost</span>
+                <span>{this.props.total}</span>
               </Row>
               <Row justify="space-between" style={{ padding: "4px 0" }}>
                 <span>Taxes</span>
@@ -101,7 +101,9 @@ class CartWithProduct extends Component {
                 style={{ margin: "0 0 40px", padding: "12px 0" }}
               >
                 <strong style={{ fontSize: "16px" }}> Total</strong>
-                <strong style={{ fontSize: "16px" }}>$1.411.59 </strong>
+                <strong style={{ fontSize: "16px" }}>
+                  ${this.props.total}{" "}
+                </strong>
               </Row>
             </div>
             <Button
@@ -133,6 +135,10 @@ class CartWithProduct extends Component {
 const mapStateToProps = (state) => {
   return {
     cart: state.cartReducer.cart,
+    total: state.cartReducer.cart.reduce(
+      (total, cartItem) => total + cartItem.listPrice * cartItem.quantity,
+      0
+    ),
   };
 };
 const mapDispatchToProps = (dispatch) => {

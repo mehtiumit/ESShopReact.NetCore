@@ -1,110 +1,47 @@
 import React, { Component } from "react";
-import { Drawer, Avatar, List, Divider, Typography } from "antd";
-import {
-  UserOutlined,
-  HomeFilled,
-  InfoCircleFilled,
-  ReadFilled,
-  InsuranceFilled,
-  CloseCircleOutlined,
-} from "@ant-design/icons";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../../redux/actions/authActions";
-const { Text } = Typography;
-class Profile extends Component {
-  render() {
-    const data = [
-      {
-        title: "Keşfet",
-        icon: <HomeFilled style={{ fontSize: "24px" }} />,
-        dest: "/",
-        onClick: () => this.props.onShow(),
-      },
-      {
-        title: "Profilim",
-        icon: <UserOutlined style={{ fontSize: "24px" }} />,
-        dest: "/profile",
-        onClick: () => this.props.onShow(),
-      },
-      {
-        title: "Hakkında",
-        icon: <InfoCircleFilled style={{ fontSize: "24px" }} />,
-        dest: "/about",
-        onClick: () => this.props.onShow(),
-      },
-      {
-        title: "Şartlar ve koşullar",
-        icon: <ReadFilled style={{ fontSize: "24px" }} />,
-        dest: "/termsandcontitions",
-        onClick: () => this.props.onShow(),
-      },
-      {
-        title: "Gizlilik Politikası",
-        icon: <InsuranceFilled style={{ fontSize: "24px" }} />,
-        dest: "/privacypolicy",
-        onClick: () => this.props.onShow(),
-      },
-      {
-        title: "Çıkış Yap",
-        icon: <CloseCircleOutlined style={{ fontSize: "24px" }} />,
-        onClick: () => {
-          this.props.onShow();
-          this.props.logOut();
-        },
-      },
-    ];
+import { Row, Col, Menu } from "antd";
+import { ProfileOutlined } from "@ant-design/icons";
+import { BiCartAlt } from "react-icons/bi";
 
+export default class Profile extends Component {
+  render() {
     return (
-      <Drawer
-        title="Hesabım"
-        placement="right"
-        closable={false}
-        onClose={this.props.onShow}
-        visible={true}
-        key="right"
-        bodyStyle={{ padding: "10px" }}
+      <div
+        style={{
+          width: "100%",
+          height: "auto",
+          minHeight: "100vh",
+        }}
       >
-        <div style={{ marginLeft: "0px", marginTop: "5px", width: "100%" }}>
-          <Avatar
-            shape="circle"
-            size={{ xs: 32, sm: 40, md: 48, lg: 72, xl: 88, xxl: 108 }}
-            icon={<UserOutlined />}
-            style={{ display: "block" }}
-          />
-          <Text>Hoş Geldiniz Sayın</Text>
-          <br></br>
-          <Text type="warning">{this.props.userData.userName}</Text>
-        </div>
-        <Divider style={{ backgroundColor: "green" }} />
-        <List
-          itemLayout="horizontal"
-          dataSource={data}
-          style={{ width: "100%", marginTop: "5px", marginLeft: "5px" }}
-          renderItem={(item) => (
-            <List.Item onClick={() => item.onClick()}>
-              <List.Item.Meta
-                avatar={item.icon}
-                title={<Link to={item.dest}>{item.title}</Link>}
-              />
-            </List.Item>
-          )}
-        />
-      </Drawer>
+        <Row>
+          <Row style={{ margin: "auto" }}>
+            <Menu mode="horizontal">
+              <Menu.Item key="mail" icon={<ProfileOutlined />}>
+                Profile
+              </Menu.Item>
+              <Menu.Item key="app" icon={<BiCartAlt />}>
+                My Orders
+              </Menu.Item>
+            </Menu>
+          </Row>
+        </Row>
+        <Row
+          style={{
+            border: "1px solid red",
+            width: "100%",
+            minHeight: "100vh",
+            height: "auto",
+          }}
+        >
+          <Col span={4}>Boşluk</Col>
+          <Col style={{ border: "1px solid red" }} span={16}>
+            <Row justify="center">
+              <Col>Profil</Col>
+            </Row>
+          </Col>
+          <Col span={4}>Boşluk</Col>
+        </Row>
+      </div>
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    userData: state.authReducer.user,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logOut: () => dispatch(logout()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -6,16 +6,25 @@ import {
   InfoCircleFilled,
   ReadFilled,
   InsuranceFilled,
+  CloseCircleOutlined,
 } from "@ant-design/icons";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../../../redux/actions/authActions";
 const { Text } = Typography;
-class ProfileForNotLogin extends Component {
+class ProfileDrawer extends Component {
   render() {
-    const profileData = [
+    const data = [
       {
         title: "Keşfet",
         icon: <HomeFilled style={{ fontSize: "24px" }} />,
         dest: "/",
+        onClick: () => this.props.onShow(),
+      },
+      {
+        title: "Profilim",
+        icon: <UserOutlined style={{ fontSize: "24px" }} />,
+        dest: "/profile",
         onClick: () => this.props.onShow(),
       },
       {
@@ -36,14 +45,23 @@ class ProfileForNotLogin extends Component {
         dest: "/privacypolicy",
         onClick: () => this.props.onShow(),
       },
+      {
+        title: "Çıkış Yap",
+        icon: <CloseCircleOutlined style={{ fontSize: "24px" }} />,
+        onClick: () => {
+          this.props.onShow();
+          this.props.logOut();
+        },
+      },
     ];
+
     return (
       <Drawer
         title="Hesabım"
         placement="right"
         closable={false}
         onClose={this.props.onShow}
-        visible={this.props.onShow}
+        visible={true}
         key="right"
         bodyStyle={{ padding: "10px" }}
       >
@@ -54,20 +72,14 @@ class ProfileForNotLogin extends Component {
             icon={<UserOutlined />}
             style={{ display: "block" }}
           />
-          <Text>Giriş Yapmadın</Text>
+          <Text>Hoş Geldiniz Sayın</Text>
           <br></br>
-          <Link
-            style={{ color: "#faad14" }}
-            to="/login"
-            onClick={this.props.onShow}
-          >
-            Giriş Yapmak İçin
-          </Link>
+          <Text type="warning">{this.props.userData.userName}</Text>
         </div>
         <Divider style={{ backgroundColor: "green" }} />
         <List
           itemLayout="horizontal"
-          dataSource={profileData}
+          dataSource={data}
           style={{ width: "100%", marginTop: "5px", marginLeft: "5px" }}
           renderItem={(item) => (
             <List.Item onClick={() => item.onClick()}>
@@ -83,4 +95,16 @@ class ProfileForNotLogin extends Component {
   }
 }
 
-export default ProfileForNotLogin;
+const mapStateToProps = (state) => {
+  return {
+    userData: state.authReducer.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut: () => dispatch(logout()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileDrawer);

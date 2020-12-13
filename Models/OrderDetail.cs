@@ -1,4 +1,5 @@
 ﻿using ESShopReact.NetCore.Data;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ESShopReact.NetCore.Models
@@ -11,6 +12,6 @@ namespace ESShopReact.NetCore.Models
         public decimal DetailPrice { get; set; }
         public int DetailQuantity { get; set; }
         public Order Order { get; set; }
-        public Product Product { get; set; }
+        public List<Product> Product { get; set; }
     }
 }

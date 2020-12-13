@@ -8,7 +8,7 @@ export const addToCart = (product) => {
 };
 export const removeFromCart = (product) => {
   return {
-    type: actionTypes.ADD_TO_CART,
+    type: actionTypes.REMOVE_FROM_CART,
     payload: product,
   };
 };

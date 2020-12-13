@@ -11,9 +11,9 @@ import {
 import classes from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import Profile from "../Profile/Profile";
+import ProfileDrawer from "../Profile/ProfileDrawers/ProfileDrawer";
 import { getUserData } from "../../redux/actions/authActions";
-import ProfileForNotLogin from "../Profile/ProfileForNotLogin";
+import ProfileForNotLoginDrawer from "../Profile/ProfileDrawers/ProfileForNotLoginDrawer";
 import { isLogin } from "../../utils/Utils";
 import LoginForm from "../Auth/LoginForm";
 import RegisterForm from "../Auth/RegisterForm";
@@ -41,9 +41,9 @@ class Navbar extends Component {
     let profileForShow = (
       <Fragment>
         {isLogin() ? (
-          <Profile onShow={this.onShow}></Profile>
+          <ProfileDrawer onShow={this.onShow}></ProfileDrawer>
         ) : (
-          <ProfileForNotLogin onShow={this.onShow}></ProfileForNotLogin>
+          <ProfileForNotLoginDrawer onShow={this.onShow}></ProfileForNotLoginDrawer>
         )}
       </Fragment>
     );
@@ -149,7 +149,7 @@ class Navbar extends Component {
             </div>
           </Modal>
 
-          {this.state.showCart ? <cart /> : null}
+          {this.state.showCart ? cart : null}
         </Col>
       </Row>
     );

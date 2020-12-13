@@ -3,6 +3,9 @@ import { DeleteOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { Row, Col, Avatar, Input, Typography } from "antd";
 const { Title } = Typography;
 export default class CartWithProductBody extends Component {
+  componentDidMount() {
+    console.log("This props", this.props);
+  }
   render() {
     return (
       <Row style={{ minHeight: "135px" }}>
@@ -23,7 +26,7 @@ export default class CartWithProductBody extends Component {
             </div>
             <div>
               <MinusOutlined
-                onClick={() => this.props.subtractFromCart()}
+                onClick={() => this.props.subtractQuantity()}
                 style={{ fontSize: "18px" }}
               />
               <Input
