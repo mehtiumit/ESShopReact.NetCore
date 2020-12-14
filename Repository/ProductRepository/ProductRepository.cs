@@ -84,6 +84,30 @@ namespace ESShopReact.NetCore.Repository.ProductRepository
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<List<GetProductDto>>> GetProductsByCategoryASC(int categoryID)
+        {
+            ServiceResponse<List<GetProductDto>> serviceResponse = new ServiceResponse<List<GetProductDto>>();
+            List<Product> dbProducts = await _context.Products.Where(c => c.CategoryID == categoryID).OrderBy(p => p.ListPrice).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDto>(p)).ToList();
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetProductDto>>> GetProductsByASC()
+        {
+            ServiceResponse<List<GetProductDto>> serviceResponse = new ServiceResponse<List<GetProductDto>>();
+            List<Product> dbProducts = await _context.Products.OrderByDescending(p => p.ListPrice).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDto>(p)).ToList();
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetProductDto>>> GetProductsByCategoryDESC(int categoryID)
+        {
+            ServiceResponse<List<GetProductDto>> serviceResponse = new ServiceResponse<List<GetProductDto>>();
+            List<Product> dbProducts = await _context.Products.Where(c => c.CategoryID == categoryID).OrderByDescending(p => p.ListPrice).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDto>(p)).ToList();
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<GetProductDto>> UpdateProduct(UpdateProductDto updatedProduct)
         {
             ServiceResponse<GetProductDto> serviceResponse = new ServiceResponse<GetProductDto>();

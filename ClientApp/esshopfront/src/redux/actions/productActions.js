@@ -21,11 +21,21 @@ const getProductFail = (err) => {
   };
 };
 
+export const sortProductAsc = () => {
+  return {
+    type: actionTypes.SORT_PRODUCT_ASC,
+  };
+};
+
+export const sortProductDesc = () => {
+  return {
+    type: actionTypes.SORT_PRODUCT_DESC,
+  };
+};
+
 export const fetchProducts = (categoryId) => {
-  console.log("categoryID actions" + categoryId);
   return (dispatch) => {
     dispatch(getProductStart());
-    console.log("categoryID actions", categoryId);
     if (categoryId) {
       Axios.get(`/products/getbyCategory/${categoryId}`)
         .then((res) => {

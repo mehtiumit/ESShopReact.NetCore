@@ -25,7 +25,6 @@ namespace ESShopReact.NetCore.Repository
             List<Category> dbCategories = await _context.Categories.ToListAsync();
             serviceResponse.Data = dbCategories.Select(c => _mapper.Map<GetCategoryDto>(c)).ToList();
             return serviceResponse;
-
-        }
+                    }
     }
 }

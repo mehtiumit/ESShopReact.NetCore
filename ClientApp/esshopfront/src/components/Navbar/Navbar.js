@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Menu, Row, Col, Input, Avatar, Modal, Button } from "antd";
+import { Menu, Row, Col, Input, Avatar, Modal, Button, Badge } from "antd";
 import {
   HomeOutlined,
   SearchOutlined,
@@ -43,7 +43,9 @@ class Navbar extends Component {
         {isLogin() ? (
           <ProfileDrawer onShow={this.onShow}></ProfileDrawer>
         ) : (
-          <ProfileForNotLoginDrawer onShow={this.onShow}></ProfileForNotLoginDrawer>
+          <ProfileForNotLoginDrawer
+            onShow={this.onShow}
+          ></ProfileForNotLoginDrawer>
         )}
       </Fragment>
     );
@@ -86,7 +88,7 @@ class Navbar extends Component {
         <ShoppingOutlined
           onClick={this.showCart}
           style={{ fontSize: "20px", color: "#000000" }}
-        />
+        ></ShoppingOutlined>
         {this.state.showCart ? cartForShow : null}
       </div>
     );
@@ -122,7 +124,7 @@ class Navbar extends Component {
             onClick={() => this.setState({ loginModal: true })}
             className={classes.icon}
           />
-          <div>{cart}</div>
+          <div style={{ paddingLeft: "5px" }}>{cart}</div>
           <HeartFilled className={classes.icon}></HeartFilled>
           <Modal
             onCancel={() => this.setState({ loginModal: false })}

@@ -25,6 +25,18 @@ const productReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case actionTypes.SORT_PRODUCT_ASC:
+      // const sortByKey = (key) => (a, b) => (a[key] > b[key] ? 1 : -1);
+      // return state.products.slice().sort(sortByKey(state.products.listPrice));
+      return {
+        ...state,
+        products: state.products.sort((a, b) => a.listPrice - b.listPrice),
+      };
+    case actionTypes.SORT_PRODUCT_DESC:
+      return {
+        ...state,
+        products: state.products.sort((b, a) => a.listPrice - b.listPrice),
+      };
     default:
       return state;
   }

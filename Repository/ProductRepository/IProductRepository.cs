@@ -14,5 +14,8 @@ namespace ESShopReact.NetCore.Repository.ProductRepository
         Task<ServiceResponse<GetProductDto>> UpdateProduct(UpdateProductDto updatedProduct);
         Task<ServiceResponse<List<GetProductDto>>> DeleteProduct(int productID);
         Task<ServiceResponse<List<GetProductDto>>> GetProductsByCategory(int categoryID);
+        Task<ServiceResponse<List<GetProductDto>>> GetProductsByCategoryASC(int categoryID);
+        Task<ServiceResponse<List<GetProductDto>>> GetProductsByCategoryDESC(int categoryID);
+        Task<ServiceResponse<List<GetProductDto>>> GetProductsByASC();
     }
 }

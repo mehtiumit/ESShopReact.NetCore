@@ -21,7 +21,7 @@ const getCategoryFail = (err) => {
   };
 };
 
-export const fetchCategory = (dispatch) => {
+export const fetchCategory = () => {
   return (dispatch) => {
     dispatch(getCategoryStart());
     Axios.get("/category")

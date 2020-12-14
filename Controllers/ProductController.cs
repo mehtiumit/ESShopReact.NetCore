@@ -64,5 +64,20 @@ namespace ESShopReact.NetCore.Controllers
         {
             return Ok(await _productRepository.GetProductsByCategory(categoryId));
         }
+        [HttpGet("asc/{categoryId}")]
+        public async Task<IActionResult> GetProductsByCategoryASC(int categoryId)
+        {
+            return Ok(await _productRepository.GetProductsByCategoryASC(categoryId));
+        }
+        [HttpGet("dsc/{categoryId}")]
+        public async Task<IActionResult> GetProductsByCategoryDSC(int categoryId)
+        {
+            return Ok(await _productRepository.GetProductsByCategoryDESC(categoryId));
+        }
+        [HttpGet("asc")]
+        public async Task<IActionResult> GetProductsByCategoryDeneme()
+        {
+            return Ok(await _productRepository.GetProductsByASC());
+        }
     }
 }

@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
 import ProductCard from "../ProductCard/ProductCard";
-import { fetchProducts } from "../../redux/actions/productActions";
+import {
+  fetchProducts,
+  sortProductAsc,
+  sortProductDesc,
+} from "../../redux/actions/productActions";
 import { connect } from "react-redux";
 import { fetchCategory } from "../../redux/actions/categoryActions";
 import { addToCart } from "../../redux/actions/cartActions";
@@ -85,7 +89,33 @@ class Main extends Component {
           style={{ border: "1px solid green", width: "auto", height: "100%" }}
           span={4}
         >
-          Sort
+          <div
+            style={{
+              marginTop: "15px",
+              marginLeft: "15%",
+            }}
+          >
+            <ul
+              style={{
+                listStyle: "none",
+                margin: "0",
+                padding: "0",
+                letterSpacing: "1px",
+              }}
+            >
+              <li
+                style={{
+                  fontFamily: "roboto",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
+              >
+                Sort
+                <li onClick={() => this.props.sortAsc()}>Price: Low to high</li>
+                <li onClick={() => this.props.sortDesc()}>Price: High to low</li>
+              </li>
+            </ul>
+          </div>
         </Col>
       </Row>
     );
@@ -104,6 +134,8 @@ const mapDispatchToProps = (dispatch) => {
     getProducts: (categoryID) => dispatch(fetchProducts(categoryID)),
     getCategories: () => dispatch(fetchCategory()),
     addToCart: (product) => dispatch(addToCart(product)),
+    sortAsc: () => dispatch(sortProductAsc()),
+    sortDesc: () => dispatch(sortProductDesc()),
   };
 };
 
