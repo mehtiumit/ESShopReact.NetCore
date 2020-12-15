@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import PrivateNotLoginRoute from "./components/routes/PrivateNotLoginRoute";
 import { isLogin } from "./utils/Utils";
 import InfoPage from "./components/Info/InfoPage";
-import Profile from "./components/Profile/Profile";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const { Header, Content, Footer } = Layout;
 
@@ -43,10 +43,17 @@ class App extends Component {
           <Switch>
             <Route path="/about" component={InfoPage} />
             <Route path="/" exact component={Main} />
-            <PrivateNotLoginRoute path="/profile" component={Profile} />
+            <Route path="/profile" component={ProfileContainer} />
           </Switch>
         </Content>
-        <Footer style={{ margin: "0", padding: "0" }}>
+        <Footer
+          style={{
+            margin: "0",
+            padding: "0",
+            border: "1px gray",
+            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+          }}
+        >
           <CustomFooter></CustomFooter>
         </Footer>
       </Layout>
