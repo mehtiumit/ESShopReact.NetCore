@@ -8,7 +8,6 @@ namespace ESShopReact.NetCore.Repository
     {
         Task<User> RegisterUser(User user, string password);
         Task<User> Login(string eMail, string password);
-        Task<ServiceResponse<UserForInfoDto>> UserInfo(int userId);
-        Task<bool> UserExists(string eMail);
+               Task<bool> UserExists(string eMail);
     }
 }

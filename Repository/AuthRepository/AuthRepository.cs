@@ -77,13 +77,6 @@ namespace ESShopReact.NetCore.Repository
             return false;
         }
 
-        public async Task<ServiceResponse<UserForInfoDto>> UserInfo(int userId)
-        {
-            ServiceResponse<UserForInfoDto> serviceResponse = new ServiceResponse<UserForInfoDto>();
-            User dbUser = await _context.Users.FirstOrDefaultAsync(u => u.UserID == userId);
-            serviceResponse.Data = _mapper.Map<UserForInfoDto>(dbUser);
-            return serviceResponse;
-        }
-    }
+            }
 }
 

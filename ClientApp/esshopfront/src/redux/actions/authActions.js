@@ -98,7 +98,7 @@ export const checkAuthTimeout = () => {
 export const getUserData = (userId) => {
   return (dispatch) => {
     axios
-      .get(`/auth/getuser/${userId}`)
+      .get(`/user/getuser/${userId}`)
       .then((res) => {
         console.log("User data", res.data);
         dispatch(getUser(res.data));
