@@ -16,37 +16,37 @@ class ProfileDrawer extends Component {
   render() {
     const data = [
       {
-        title: "Keşfet",
+        title: "All Products",
         icon: <HomeFilled style={{ fontSize: "24px" }} />,
         dest: "/",
         onClick: () => this.props.onShow(),
       },
       {
-        title: "Profilim",
+        title: "My Profile",
         icon: <UserOutlined style={{ fontSize: "24px" }} />,
         dest: "/profile",
         onClick: () => this.props.onShow(),
       },
       {
-        title: "Hakkında",
+        title: "About",
         icon: <InfoCircleFilled style={{ fontSize: "24px" }} />,
         dest: "/about",
         onClick: () => this.props.onShow(),
       },
       {
-        title: "Şartlar ve koşullar",
+        title: "Terms and Conditions",
         icon: <ReadFilled style={{ fontSize: "24px" }} />,
         dest: "/termsandcontitions",
         onClick: () => this.props.onShow(),
       },
       {
-        title: "Gizlilik Politikası",
+        title: "Privacy Policy",
         icon: <InsuranceFilled style={{ fontSize: "24px" }} />,
         dest: "/privacypolicy",
         onClick: () => this.props.onShow(),
       },
       {
-        title: "Çıkış Yap",
+        title: "Logout",
         icon: <CloseCircleOutlined style={{ fontSize: "24px" }} />,
         onClick: () => {
           this.props.onShow();
@@ -57,7 +57,7 @@ class ProfileDrawer extends Component {
 
     return (
       <Drawer
-        title="Hesabım"
+        title="My Account"
         placement="right"
         closable={false}
         onClose={this.props.onShow}
@@ -72,7 +72,7 @@ class ProfileDrawer extends Component {
             icon={<UserOutlined />}
             style={{ display: "block" }}
           />
-          <Text>Hoş Geldiniz Sayın</Text>
+          <Text>Welcome :)</Text>
           <br></br>
           <Text type="warning">{this.props.userData.userName}</Text>
         </div>

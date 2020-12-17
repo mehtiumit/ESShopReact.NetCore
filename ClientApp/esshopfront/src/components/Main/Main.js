@@ -50,7 +50,7 @@ class Main extends Component {
                 }}
                 onClick={() => this.props.getProducts()}
               >
-                Tüm Ürünler
+                All Products
               </li>
               {this.props.categoryData.map((category) => (
                 <li
@@ -85,10 +85,7 @@ class Main extends Component {
             ))}
           </Row>
         </Col>
-        <Col
-          style={{ border: "1px solid green", width: "auto", height: "100%" }}
-          span={4}
-        >
+        <Col style={{ width: "auto", height: "100%" }} span={4}>
           <div
             style={{
               marginTop: "15px",
@@ -112,7 +109,9 @@ class Main extends Component {
               >
                 Sort
                 <li onClick={() => this.props.sortAsc()}>Price: Low to high</li>
-                <li onClick={() => this.props.sortDesc()}>Price: High to low</li>
+                <li onClick={() => this.props.sortDesc()}>
+                  Price: High to low
+                </li>
               </li>
             </ul>
           </div>

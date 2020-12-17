@@ -37,7 +37,7 @@ class CartWithProduct extends Component {
         closable={false}
       >
         <Row>
-          <Tooltip title="Kapat">
+          <Tooltip title="Close">
             <VscClose
               style={{ color: "black", float: "left" }}
               onClick={() => this.props.onShow()}

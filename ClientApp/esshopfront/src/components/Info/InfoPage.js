@@ -23,16 +23,16 @@ export default class InfoPage extends Component {
 
     let about = (
       <Collapse defaultActiveKey={[1]} accordion>
-        <Panel header="Hakkında" key="1">
+        <Panel header="About" key="1">
           <p>{text}</p>
         </Panel>
-        <Panel header="Şartlar ve Koşullar" key="2">
+        <Panel header="Terms and conditions" key="2">
           <p>{text}</p>
         </Panel>
-        <Panel header="Gizlilik Politikası" key="3">
+        <Panel header="Privacy Policy" key="3">
           <p>{text}</p>
         </Panel>
-        <Panel header="Proje Hakkında" key="4">
+        <Panel header="About Project" key="4">
           <p>{text}</p>
         </Panel>
       </Collapse>
@@ -40,7 +40,7 @@ export default class InfoPage extends Component {
 
     let userAgreement = (
       <Collapse defaultActiveKey={[1]} accordion>
-        <Panel header="Kullanıcı Sözleşmesi" key="1">
+        <Panel header="User Agreement" key="1">
           <p>{text}</p>
           <p>{text}</p>
           <p>{text}</p>
@@ -54,16 +54,16 @@ export default class InfoPage extends Component {
 
     let questionAndanswer = (
       <Collapse defaultActiveKey={[1]} accordion>
-        <Panel header="Soru 1-)" key="1">
+        <Panel header="Question 1-)" key="1">
           <p>{text}</p>
         </Panel>
-        <Panel header="Soru 2-)" key="2">
+        <Panel header="Question 2-)" key="2">
           <p>{text}</p>
         </Panel>
-        <Panel header="Soru 3-)" key="3">
+        <Panel header="Question 3-)" key="3">
           <p>{text}</p>
         </Panel>
-        <Panel header="Soru 4-)" key="4">
+        <Panel header="Question 4-)" key="4">
           <p>{text}</p>
         </Panel>
       </Collapse>
@@ -71,10 +71,10 @@ export default class InfoPage extends Component {
 
     let payment = (
       <Collapse defaultActiveKey={[1]} accordion>
-        <Panel header="Kredi Kartı" key="1">
+        <Panel header="Credit Card" key="1">
           <p>{text}</p>
         </Panel>
-        <Panel header="Havale" key="2">
+        <Panel header="Paypal" key="2">
           <p>{text}</p>
         </Panel>
         <Panel header="Bitcoin" key="3">
@@ -97,11 +97,11 @@ export default class InfoPage extends Component {
           minHeight: "100vh",
         }}
       >
-        <Divider orientation="center">Yardım</Divider>
+        <Divider orientation="center">Help</Divider>
         <Row justify="center">
           <Col style={{ margin: "0", padding: "0" }}>
             <Title style={{ margin: "0", padding: "2px" }} level={2}>
-              Sıkça Sorulan Sorular
+              FAQ
             </Title>
             <Title style={{ margin: "0", padding: "2px" }} level={4}>
               <Link
@@ -116,7 +116,7 @@ export default class InfoPage extends Component {
                 href="https://github.com/mehtiumit"
                 target="_blank"
               >
-                Destek ve Diğer Sorularınız İçin
+                For another questions
               </Link>
             </Title>
           </Col>
@@ -157,10 +157,10 @@ export default class InfoPage extends Component {
                 }}
                 onChange={this.callback}
               >
-                <TabPane tab="Hakkında" key="1"></TabPane>
-                <TabPane tab="Kullanıcı Sözleşmesi" key="2"></TabPane>
-                <TabPane tab="Başka bir Soru ve cevabı" key="3"></TabPane>
-                <TabPane tab="Ödeme" key="4"></TabPane>
+                <TabPane tab="About" key="1"></TabPane>
+                <TabPane tab="User Agreement" key="2"></TabPane>
+                <TabPane tab="Another question and answer" key="3"></TabPane>
+                <TabPane tab="Payment" key="4"></TabPane>
               </Tabs>
             </Col>
             <Col

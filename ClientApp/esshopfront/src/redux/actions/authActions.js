@@ -2,6 +2,7 @@ import axios from "axios";
 import * as actionTypes from "./actionTypes";
 import { setAuthorizationToken } from "../../helpers/setAuthToken";
 import jwt from "jwt-decode";
+import Axios from "axios";
 
 const authStart = () => {
   return {
@@ -35,6 +36,27 @@ const getUserDataFail = (error) => {
   return {
     type: actionTypes.GET_USER_DATA_FAIL,
     payload: error,
+  };
+};
+
+const updateUserSuccess = (user) => {
+  return {
+    type: actionTypes.UPDATE_USER_SUCCESS,
+    payload: user,
+  };
+};
+const updateUserFail = (err) => {
+  return {
+    type: actionTypes.UPDATE_USER_FAIL,
+    payload: err,
+  };
+};
+
+export const updateUser = (user) => {
+  return (dispatch) => {
+    Axios.put("user/updateuser", user)
+      .then((res) => dispatch(updateUserSuccess(res.data)))
+      .catch((err) => dispatch(updateUserFail(err)));
   };
 };
 

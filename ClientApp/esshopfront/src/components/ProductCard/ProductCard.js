@@ -37,7 +37,7 @@ class ProductCard extends React.Component {
               title={this.props.name}
               description={this.props.description}
             />
-            <Title level={3}>Fiyatı : {this.props.price} ₺</Title>
+            <Title level={3}>Price : {this.props.price} ₺</Title>
           </Skeleton>
         </Card>
       </>

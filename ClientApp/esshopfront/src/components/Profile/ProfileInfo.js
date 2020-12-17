@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col, Form, Input, Button, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { updateUser } from "../../redux/actions/authActions";
+import { connect } from "react-redux";
 
 class ProfileInfo extends Component {
   state = {
@@ -34,6 +36,10 @@ class ProfileInfo extends Component {
         [e.target.name]: e.target.value,
       },
     });
+  };
+
+  handleUpdate = (user) => {
+    this.props.updateUserInfo(user);
   };
 
   render() {
@@ -139,7 +145,12 @@ class ProfileInfo extends Component {
                         color: "black",
                       }),
                     }}
-                    onClick={() => this.setState({ isEdit: !isEdit })}
+                    onClick={() => {
+                      this.setState({ isEdit: !isEdit });
+                      if (this.state.isEdit) {
+                        this.handleUpdate(this.state.user);
+                      }
+                    }}
                     onMouseEnter={this.handleMouseEnter}
                     onMouseLeave={this.handleMouseLeave}
                   >
@@ -155,4 +166,8 @@ class ProfileInfo extends Component {
   }
 }
 
-export default ProfileInfo;
+const mapDispatchToProps = (dispatch) => {
+  return { updateUserInfo: (user) => dispatch(updateUser(user)) };
+};
+
+export default connect(null, mapDispatchToProps)(ProfileInfo);

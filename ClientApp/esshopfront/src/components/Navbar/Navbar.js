@@ -98,13 +98,13 @@ class Navbar extends Component {
         <Col span={8}>
           <Menu theme="light" mode="horizontal">
             <Menu.Item key="1">
-              <Link to="/">Anasayfa</Link>
+              <Link to="/">Home Page</Link>
             </Menu.Item>
             <Menu.Item key="2">
-              <Link to="/">Elbiseler</Link>
+              <Link to="/">Computers</Link>
             </Menu.Item>
             <Menu.Item key="3">
-              <Link to="/">Aksesuar</Link>
+              <Link to="/">Gaming & Console</Link>
             </Menu.Item>
           </Menu>
         </Col>

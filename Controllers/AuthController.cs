@@ -74,11 +74,7 @@ namespace ESShopReact.NetCore.Controllers
             var tokenString = tokenHandler.WriteToken(token);
             return Ok(tokenString);
         }
-        [HttpGet("getuser/{userId}")]
-        public async Task<IActionResult> GetUser(int userId)
-        {
-            return Ok(await _authRepository.UserInfo(userId));
-        }
+
     }
 
 }

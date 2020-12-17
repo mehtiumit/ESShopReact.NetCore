@@ -66,7 +66,7 @@ class LoginForm extends Component {
               name="password"
               value={password}
               onChange={this.handleChange}
-              placeholder="Şifre"
+              placeholder="Password"
             />
           </Form.Item>
           <Form.Item>
@@ -89,7 +89,7 @@ class LoginForm extends Component {
               type="primary"
               htmlType="submit"
             >
-              Giriş
+              Login
             </Button>
           </Form.Item>
         </Form>

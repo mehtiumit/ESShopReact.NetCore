@@ -4,9 +4,6 @@ import { PlusOutlined } from "@ant-design/icons";
 import Axios from "axios";
 
 export default class RegisterForm extends Component {
-  componentDidMount() {
-    console.log("props", this.props);
-  }
   state = {
     registerData: {
       userName: "",
@@ -39,7 +36,7 @@ export default class RegisterForm extends Component {
       Axios.post("/auth/register", this.state.registerData)
         .then((res) => {
           notification.info({
-            message: "Kayıt işlemi başarıyla tamamlandı",
+            message: "Registration completed",
             placement: "bottomRight",
           });
           console.log("Res", res.headers);
@@ -47,7 +44,7 @@ export default class RegisterForm extends Component {
         })
         .catch((err) => {
           notification.warning({
-            message: "Kayıt işlemi sırasında hata oldu",
+            message: "Something went wrong :(",
             placement: "bottomRight",
           });
           console.log("err", err);
@@ -81,7 +78,7 @@ export default class RegisterForm extends Component {
               name="userName"
               value={userName}
               onChange={this.handleChange}
-              placeholder="isim"
+              placeholder="Name"
             />
           </Form.Item>
           <Form.Item
@@ -92,7 +89,7 @@ export default class RegisterForm extends Component {
               name="userSurname"
               value={userSurname}
               onChange={this.handleChange}
-              placeholder="Soyisim"
+              placeholder="Surname"
             />
           </Form.Item>
           <Form.Item
@@ -114,7 +111,7 @@ export default class RegisterForm extends Component {
               name="phoneNumber"
               value={phoneNumber}
               onChange={this.handleChange}
-              placeholder="Telefon Numarası"
+              placeholder="Phone number"
             />
           </Form.Item>
           <Form.Item
@@ -125,7 +122,7 @@ export default class RegisterForm extends Component {
               onChange={this.handleChange}
               value={password}
               name="password"
-              placeholder="Şifre"
+              placeholder="Password"
             />
           </Form.Item>
           <Form.Item>
@@ -148,7 +145,7 @@ export default class RegisterForm extends Component {
               type="primary"
               htmlType="submit"
             >
-              Kaydol
+              Register
             </Button>
           </Form.Item>
         </Form>

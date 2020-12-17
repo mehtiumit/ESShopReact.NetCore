@@ -4,7 +4,7 @@ const initialState = {
   userId: "",
   user: {},
   isAuthenticated: false,
-  error: false,
+  error: "",
   loading: false,
   token: "",
 };
@@ -48,6 +48,19 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload.error,
+      };
+    case actionTypes.UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        user:
+          state.user.userId === action.payload.data.userId
+            ? action.payload.data
+            : state.user,
+      };
+    case actionTypes.UPDATE_USER_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

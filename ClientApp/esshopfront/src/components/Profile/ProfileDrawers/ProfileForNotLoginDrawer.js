@@ -13,25 +13,25 @@ class ProfileForNotLoginDrawer extends Component {
   render() {
     const profileData = [
       {
-        title: "Keşfet",
+        title: "All Products",
         icon: <HomeFilled style={{ fontSize: "24px" }} />,
         dest: "/",
         onClick: () => this.props.onShow(),
       },
       {
-        title: "Hakkında",
+        title: "About",
         icon: <InfoCircleFilled style={{ fontSize: "24px" }} />,
         dest: "/about",
         onClick: () => this.props.onShow(),
       },
       {
-        title: "Şartlar ve koşullar",
+        title: "Terms and Conditions",
         icon: <ReadFilled style={{ fontSize: "24px" }} />,
         dest: "/termsandcontitions",
         onClick: () => this.props.onShow(),
       },
       {
-        title: "Gizlilik Politikası",
+        title: "Privacy Policy",
         icon: <InsuranceFilled style={{ fontSize: "24px" }} />,
         dest: "/privacypolicy",
         onClick: () => this.props.onShow(),
@@ -39,7 +39,7 @@ class ProfileForNotLoginDrawer extends Component {
     ];
     return (
       <Drawer
-        title="Hesabım"
+        title="My Account"
         placement="right"
         closable={false}
         onClose={this.props.onShow}
@@ -61,7 +61,7 @@ class ProfileForNotLoginDrawer extends Component {
             to="/login"
             onClick={this.props.onShow}
           >
-            Giriş Yapmak İçin
+            For Login
           </Link>
         </div>
         <Divider style={{ backgroundColor: "green" }} />
