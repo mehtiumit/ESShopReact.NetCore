@@ -9,6 +9,6 @@ namespace ESShopReact.NetCore.Dtos.Category
     {
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
-        public ICollection<AddProductDto> Product { get; set; }
+      //  public ICollection<AddProductDto> Product { get; set; }
     }
 }

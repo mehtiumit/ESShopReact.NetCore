@@ -1,5 +1,6 @@
 ﻿using ESShopReact.NetCore.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ESShopReact.NetCore.Data
 {
@@ -10,9 +11,10 @@ namespace ESShopReact.NetCore.Data
         public string Description { get; set; }
         public int UnitsInStock { get; set; }
         public decimal ListPrice { get; set; }
+        [ForeignKey("CategoryID")]
         public int CategoryID { get; set; }
         public Category Category { get; set; }
-        public ICollection<OrderDetail> OrderDetail { get; set; }
+        public List<ProductOrder> ProductOrders { get; set; }
 
     }
 }

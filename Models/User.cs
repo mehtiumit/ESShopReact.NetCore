@@ -5,13 +5,13 @@ namespace ESShopReact.NetCore.Models
     public class User
     {
 
-        public User()
-        {
-            Orders = new List<Order>();
-        }
 
         public int UserID { get; set; }
-        public ICollection<Order> Orders { get; set; }
+
+
+  
+        public List<Order> Orders { get; set; }
+
         public string UserName { get; set; }
         public string UserSurname { get; set; }
         public string EMail { get; set; }

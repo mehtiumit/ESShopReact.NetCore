@@ -1,6 +1,7 @@
 using AutoMapper;
 using ESShopReact.NetCore.Data;
 using ESShopReact.NetCore.Repository;
+using ESShopReact.NetCore.Repository.OrderRepository;
 using ESShopReact.NetCore.Repository.ProductRepository;
 using ESShopReact.NetCore.Repository.UserRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,6 +51,7 @@ namespace ESShopReact.NetCore
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserReporsitory, UserRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddCors();
         }
 

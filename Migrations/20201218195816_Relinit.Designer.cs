@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ESShopReact.NetCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201115154656_dbinit")]
-    partial class dbinit
+    [Migration("20201218195816_Relinit")]
+    partial class Relinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,7 +43,7 @@ namespace ESShopReact.NetCore.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CategoryID")
+                    b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -55,7 +55,7 @@ namespace ESShopReact.NetCore.Migrations
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("UnitsInStock")
                         .HasColumnType("int");
 
                     b.HasKey("ProductID");
@@ -81,7 +81,7 @@ namespace ESShopReact.NetCore.Migrations
                     b.Property<string>("OrderShipName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserID")
+                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("OrderID");
@@ -91,35 +91,19 @@ namespace ESShopReact.NetCore.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("ESShopReact.NetCore.Models.OrderDetail", b =>
+            modelBuilder.Entity("ESShopReact.NetCore.Models.ProductOrder", b =>
                 {
-                    b.Property<int>("DetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("DetailName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("DetailPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("DetailQuantity")
+                    b.Property<int>("OrderID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderID")
+                    b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DetailID");
-
-                    b.HasIndex("OrderID");
+                    b.HasKey("OrderID", "ProductID");
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("ProductOrder");
                 });
 
             modelBuilder.Entity("ESShopReact.NetCore.Models.User", b =>
@@ -159,27 +143,37 @@ namespace ESShopReact.NetCore.Migrations
                 {
                     b.HasOne("ESShopReact.NetCore.Data.Category", "Category")
                         .WithMany("Product")
-                        .HasForeignKey("CategoryID");
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });
 
             modelBuilder.Entity("ESShopReact.NetCore.Models.Order", b =>
                 {
-                    b.HasOne("ESShopReact.NetCore.Models.User", null)
+                    b.HasOne("ESShopReact.NetCore.Models.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ESShopReact.NetCore.Models.OrderDetail", b =>
+            modelBuilder.Entity("ESShopReact.NetCore.Models.ProductOrder", b =>
                 {
                     b.HasOne("ESShopReact.NetCore.Models.Order", "Order")
-                        .WithMany("OrderDetail")
-                        .HasForeignKey("OrderID");
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ESShopReact.NetCore.Data.Product", "Product")
-                        .WithMany("OrderDetail")
-                        .HasForeignKey("ProductID");
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Order");
 
@@ -193,12 +187,12 @@ namespace ESShopReact.NetCore.Migrations
 
             modelBuilder.Entity("ESShopReact.NetCore.Data.Product", b =>
                 {
-                    b.Navigation("OrderDetail");
+                    b.Navigation("ProductOrders");
                 });
 
             modelBuilder.Entity("ESShopReact.NetCore.Models.Order", b =>
                 {
-                    b.Navigation("OrderDetail");
+                    b.Navigation("ProductOrders");
                 });
 
             modelBuilder.Entity("ESShopReact.NetCore.Models.User", b =>
