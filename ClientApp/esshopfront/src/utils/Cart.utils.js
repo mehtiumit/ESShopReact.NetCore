@@ -5,25 +5,25 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
   if (existingCartItem) {
     return cartItems.map((item) =>
       item.productID === cartItemToAdd.productID
-        ? { ...cartItemToAdd, quantity: item.quantity + 1 }
+        ? { ...cartItemToAdd, orderedQuantity: item.orderedQuantity + 1 }
         : item
     );
   }
 
-  return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
+  return [...cartItems, { ...cartItemToAdd, orderedQuantity: 1 }];
 };
 export const removeItemFromCart = (cartItems, cartItemToRemove) => {
   const existingCartItem = cartItems.find(
     (item) => item.productID === cartItemToRemove.productID
   );
-  if (existingCartItem.quantity === 1) {
+  if (existingCartItem.orderedQuantity === 1) {
     return cartItems.filter(
       (item) => item.productID !== cartItemToRemove.productID
     );
   }
   return cartItems.map((item) =>
     item.productID === cartItemToRemove.productID
-      ? { ...item, quantity: item.quantity - 1 }
+      ? { ...item, orderedQuantity: item.orderedQuantity - 1 }
       : item
   );
 };

@@ -15,6 +15,8 @@ namespace ESShopReact.NetCore.Models
         public string OrderShipName { get; set; }
         public string OrderAdress { get; set; }
         public int OrderAmount { get; set; }
+
+
         public List<ProductOrder> ProductOrders { get; set; }
     }
 }

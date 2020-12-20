@@ -19,7 +19,15 @@ namespace ESShopReact.NetCore
             CreateMap<AddProductDto, Product>();
             CreateMap<User, UserForInfoDto>();
             CreateMap<Category, GetCategoryDto>();
-            CreateMap<Order, OrderDto>().ForMember(dto => dto.Product, c => c.MapFrom(p => p.ProductOrders.Select(po => po.Product)));
+
+            CreateMap<Order, OrderDto>()
+           .ForMember(dto => dto.Product, c => c.MapFrom(p => p.ProductOrders.Select(po => po.Product)))
+           .ForMember(dto => dto.User, u => u.MapFrom(u => u.User));
+
+
+            //    CreateMap<OrderDto, Order>().ForMember(dto => dto.ProductOrders.Select(p => p.Product), c => c.MapFrom(p => p.Product)); 
+            /* çalışmıyor AutoMapper.AutoMapperConfigurationException:* 'Custom configuration for members is only supported for top-level individual members on a type.'*/
+            CreateMap<OrderDto, Order>(); // product hariç hepsini yüklüyor
         }
     }
 }

@@ -121,6 +121,7 @@ namespace ESShopReact.NetCore.Repository.ProductRepository
                     product.UnitsInStock = updatedProduct.UnitsInStock;
                     product.CategoryID = updatedProduct.CategoryID;
                     product.Description = updatedProduct.Description;
+                    product.OrderedQuantity = updatedProduct.OrderedQuantity;
                     _context.Products.Update(product);
                     await _context.SaveChangesAsync();
                     serviceResponse.Data = _mapper.Map<GetProductDto>(product);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Drawer, Typography, Tooltip, Divider, Button } from "antd";
+import { Row, Drawer, Typography, Tooltip, Divider, Button, Modal } from "antd";
 import { VscClose } from "react-icons/vsc";
 import { Layout } from "antd";
 import CartWithProductBody from "./CartWithProductBody";
@@ -9,6 +9,8 @@ import {
   instaDeleteFromCart,
   removeFromCart,
 } from "../../redux/actions/cartActions";
+import PurchaseModal from "./PurchaseModal";
+
 const { Title } = Typography;
 const { Footer, Content } = Layout;
 class CartWithProduct extends Component {
@@ -17,6 +19,7 @@ class CartWithProduct extends Component {
   }
   state = {
     hover: false,
+    modalVisible: false,
   };
   handleMouseEnter = () => {
     this.setState({ hover: true });
@@ -65,10 +68,12 @@ class CartWithProduct extends Component {
                 id={cartItem.productID}
                 productName={cartItem.productName}
                 price={cartItem.listPrice}
-                quantity={cartItem.quantity}
+                quantity={cartItem.orderedQuantity}
                 addQuantity={() => this.props.addToCart(cartItem)}
                 subtractQuantity={() => this.props.subtractQuantity(cartItem)}
-                instaDeleteFromCart={() =>this.props.instaDeleteFromCart(cartItem)}
+                instaDeleteFromCart={() =>
+                  this.props.instaDeleteFromCart(cartItem)
+                }
               />
             ))}
           </Content>
@@ -121,12 +126,23 @@ class CartWithProduct extends Component {
               }}
               onMouseEnter={this.handleMouseEnter}
               onMouseLeave={this.handleMouseLeave}
+              onClick={() => this.setState({ modalVisible: true })}
               type="primary"
             >
-              PROCEED TO CHECKOUT
+              BUY
             </Button>
           </Footer>
         </Layout>
+        {this.state.modalVisible ? (
+          <Modal visible={this.state.modalVisible} centered footer={null}>
+            <PurchaseModal
+              cart={this.props.cart}
+              total={this.props.total}
+              userId={this.props.userId}
+              purchase={this.props.purchase}
+            />
+          </Modal>
+        ) : null}
       </Drawer>
     );
   }
@@ -136,9 +152,11 @@ const mapStateToProps = (state) => {
   return {
     cart: state.cartReducer.cart,
     total: state.cartReducer.cart.reduce(
-      (total, cartItem) => total + cartItem.listPrice * cartItem.quantity,
+      (total, cartItem) =>
+        total + cartItem.listPrice * cartItem.orderedQuantity,
       0
     ),
+    userId: state.authReducer.userId,
   };
 };
 const mapDispatchToProps = (dispatch) => {

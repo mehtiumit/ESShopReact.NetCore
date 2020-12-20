@@ -14,7 +14,7 @@ namespace ESShopReact.NetCore.Repository.OrderRepository
         //Task<ServiceResponse<List<OrderDetailDto>>> GetAllOrder();
 
 
-        Task<ServiceResponse<List<OrderDto>>> AddOrder(OrderDto newOrder);
+        Task<ServiceResponse<OrderDto>> AddOrder(OrderDto newOrder);
         Task<ServiceResponse<OrderDto>> GetOrderDetail(int orderId);
         Task<ServiceResponse<List<OrderDto>>> GetAllOrder();
     }

@@ -21,14 +21,14 @@ namespace ESShopReact.NetCore.Repository.OrderRepository
             _context = context;
         }
 
-        public async Task<ServiceResponse<List<OrderDto>>> AddOrder(OrderDto newOrder)
+        public async Task<ServiceResponse<OrderDto>> AddOrder(OrderDto newOrder)
         {
 
-            ServiceResponse<List<OrderDto>> serviceResponse = new ServiceResponse<List<OrderDto>>();
+            ServiceResponse<OrderDto> serviceResponse = new ServiceResponse<OrderDto>();
             Order order = _mapper.Map<Order>(newOrder);
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
-            serviceResponse.Data = _context.Orders.Select(o => _mapper.Map<OrderDto>(o)).ToList();
+            serviceResponse.Data = _mapper.Map<OrderDto>(newOrder);
             return serviceResponse;
         }
 
