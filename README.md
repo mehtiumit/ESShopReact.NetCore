@@ -11,11 +11,13 @@ I want to show people how i can use react,redux and .net core web api. My reason
       "ConnectionStrings": {
       "DefaultConnection": "Your SQL Server Connection String"
        },
-       if you dont know the connection string: [Answer](https://stackoverflow.com/questions/10479763/how-to-get-the-connection-string-from-a-database)
-   
+
+   If You dont know the connection string [You can look here](https://stackoverflow.com/questions/10479763/how-to-get-the-connection-string-from-a-database)
+
    
    **And That's it :))**
        
+
 
 
     
@@ -33,3 +35,4 @@ I want to show people how i can use react,redux and .net core web api. My reason
  - **Redux for State management**
  - **Ant Design for UI Library**
  - **React-Icon  for icons and also used Ant Design icons**
+ 
