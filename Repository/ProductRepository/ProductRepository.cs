@@ -68,9 +68,10 @@ namespace ESShopReact.NetCore.Repository.ProductRepository
 
         public async Task<ServiceResponse<GetProductDto>> GetProductById(int productID)
         {
-            //TODO Can be wrong!
+
             ServiceResponse<GetProductDto> serviceResponse = new ServiceResponse<GetProductDto>();
             Product dbProducts = await _context.Products
+              //  .Include(po => po.ProductOrders).ThenInclude(o => o.Order)
                 .FirstOrDefaultAsync(p => p.ProductID == productID);
             serviceResponse.Data = _mapper.Map<GetProductDto>(dbProducts);
             return serviceResponse;

@@ -139,7 +139,6 @@ class CartWithProduct extends Component {
               cart={this.props.cart}
               total={this.props.total}
               userId={this.props.userId}
-              purchase={this.props.purchase}
             />
           </Modal>
         ) : null}

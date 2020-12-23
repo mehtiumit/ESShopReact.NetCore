@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ESShopReact.NetCore.Data;
 using ESShopReact.NetCore.Dtos.OrderDto;
+using ESShopReact.NetCore.Dtos.Product;
 using ESShopReact.NetCore.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,31 +22,60 @@ namespace ESShopReact.NetCore.Repository.OrderRepository
             _context = context;
         }
 
-        public async Task<ServiceResponse<OrderDto>> AddOrder(OrderDto newOrder)
+        public async Task<ServiceResponse<GetOrderDto>> AddOrder(AddProductOrderDto newOrder)
         {
 
-            ServiceResponse<OrderDto> serviceResponse = new ServiceResponse<OrderDto>();
-            Order order = _mapper.Map<Order>(newOrder);
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
-            serviceResponse.Data = _mapper.Map<OrderDto>(newOrder);
+            ServiceResponse<GetOrderDto> serviceResponse = new ServiceResponse<GetOrderDto>();
+            try
+            {
+                Order order = await _context.Orders.Include(p => p.ProductOrders)
+                    .ThenInclude(po => po.Product)
+                    .FirstOrDefaultAsync(c => c.OrderID == newOrder.OrderID);
+                if (order == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Order not found";
+                    return serviceResponse;
+                }
+                Product product = await _context.Products.FirstOrDefaultAsync(p => p.ProductID == newOrder.ProductID);
+
+                if (product == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Product not found";
+                    return serviceResponse;
+                }
+                ProductOrder productOrder = new ProductOrder
+                {
+                    Order = order,
+                    Product = product,
+                };
+                await _context.ProductOrders.AddAsync(productOrder);
+                await _context.SaveChangesAsync();
+                serviceResponse.Data = _mapper.Map<GetOrderDto>(order);
+            }
+            catch (Exception e)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = e.Message;
+            }
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<OrderDto>>> GetAllOrder()
+        public async Task<ServiceResponse<List<GetOrderDto>>> GetAllOrder()
         {
-            ServiceResponse<List<OrderDto>> serviceResponse = new ServiceResponse<List<OrderDto>>();
+            ServiceResponse<List<GetOrderDto>> serviceResponse = new ServiceResponse<List<GetOrderDto>>();
             List<Order> dbOrderDetail = await _context.Orders.Include(p => p.ProductOrders).
             ThenInclude(p => p.Product).ToListAsync();
-            serviceResponse.Data = dbOrderDetail.Select(o => _mapper.Map<OrderDto>(o)).ToList();
+            serviceResponse.Data = dbOrderDetail.Select(o => _mapper.Map<GetOrderDto>(o)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<OrderDto>> GetOrderDetail(int orderId)
+        public async Task<ServiceResponse<GetProductDto>> GetOrderDetail(int orderId)
         {
-            var serviceResponse = new ServiceResponse<OrderDto>();
+            var serviceResponse = new ServiceResponse<GetProductDto>();
             var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderID == orderId);
-            serviceResponse.Data = _mapper.Map<OrderDto>(order);
+            serviceResponse.Data = _mapper.Map<GetProductDto>(order);
             return serviceResponse;
         }
     }

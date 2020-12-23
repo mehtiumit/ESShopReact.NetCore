@@ -1,4 +1,5 @@
 ﻿using ESShopReact.NetCore.Dtos.OrderDto;
+using ESShopReact.NetCore.Dtos.Product;
 using ESShopReact.NetCore.Models;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace ESShopReact.NetCore.Repository.OrderRepository
         //Task<ServiceResponse<List<OrderDetailDto>>> GetAllOrder();
 
 
-        Task<ServiceResponse<OrderDto>> AddOrder(OrderDto newOrder);
-        Task<ServiceResponse<OrderDto>> GetOrderDetail(int orderId);
-        Task<ServiceResponse<List<OrderDto>>> GetAllOrder();
+        Task<ServiceResponse<GetOrderDto>> AddOrder(AddProductOrderDto newOrder);
+        Task<ServiceResponse<GetProductDto>> GetOrderDetail(int orderId);
+        Task<ServiceResponse<List<GetOrderDto>>> GetAllOrder();
     }
 }

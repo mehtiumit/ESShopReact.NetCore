@@ -11,7 +11,7 @@ namespace ESShopReact.NetCore.Data
         public string Description { get; set; }
         public int UnitsInStock { get; set; }
         public int OrderedQuantity { get; set; }
-        public int ListPrice { get; set; }
+        public decimal ListPrice { get; set; }
         [ForeignKey("CategoryID")]
         public int CategoryID { get; set; }
         public Category Category { get; set; }

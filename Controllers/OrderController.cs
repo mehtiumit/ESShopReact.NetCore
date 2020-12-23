@@ -30,7 +30,7 @@ namespace ESShopReact.NetCore.Controllers
             return Ok(await _repository.GetOrderDetail(orderId));
         }
         [HttpPost("addorder")]
-        public async Task<IActionResult> AddOrder(OrderDto newOrder)
+        public async Task<IActionResult> AddOrder(AddProductOrderDto newOrder)
         {
             return Ok(await _repository.AddOrder(newOrder));
         }
