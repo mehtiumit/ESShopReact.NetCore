@@ -7,11 +7,13 @@ I want to show people how i can use react,redux and .net core web api. My reason
 
 [V] 2. `Open project folder in vs code then open terminal and write "dotnet restore"` 
 
-[V] 3. `Then locate the Client/App/esshopfront open terminal then write "npm install" ` 
+[V] 3. `Open project folder in vs code then open terminal and write "dotnet ef update-database (if you are using VS instead of VScode just update-database)"` 
 
-[V] 4. `After Dependencies installation in project folder open terminal then write "dotnet run" for back-end`  
+[V] 4. `Then locate the Client/App/esshopfront open terminal then write "npm install" ` 
 
-[V] 5. `For clientApp open terminal then write "npm start"`
+[V] 5. `After Dependencies installation in project folder open terminal then write "dotnet run" for back-end`  
+
+[V] 6. `For clientApp open terminal then write "npm start"`
 
 ## Configuration 
 

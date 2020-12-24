@@ -21,7 +21,7 @@ namespace ESShopReact.NetCore
             CreateMap<Category, GetCategoryDto>();
             CreateMap<Order, GetOrderDto>()
             .ForMember(dto => dto.Products, c => c.MapFrom(p => p.ProductOrders.Select(po => po.Product)))
-           .ForMember(dto => dto.User, u => u.MapFrom(u => u.User));
+            .ForMember(dto => dto.User, u => u.MapFrom(u => u.User));
 
         }
     }

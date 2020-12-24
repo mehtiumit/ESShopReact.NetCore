@@ -22,10 +22,13 @@ namespace ESShopReact.NetCore.Repository.OrderRepository
             _context = context;
         }
 
+
+
         public async Task<ServiceResponse<GetOrderDto>> AddOrder(AddProductOrderDto newOrder)
         {
 
             ServiceResponse<GetOrderDto> serviceResponse = new ServiceResponse<GetOrderDto>();
+
             try
             {
                 Order order = await _context.Orders.Include(p => p.ProductOrders)
