@@ -27,6 +27,9 @@ class CartWithProduct extends Component {
   handleMouseLeave = () => {
     this.setState({ hover: false });
   };
+  hanldleModalShow = () => {
+    this.setState({ modalVisible: !this.state.modalVisible });
+  };
   render() {
     const { hover } = this.state;
     return (
@@ -134,7 +137,12 @@ class CartWithProduct extends Component {
           </Footer>
         </Layout>
         {this.state.modalVisible ? (
-          <Modal visible={this.state.modalVisible} centered footer={null}>
+          <Modal
+            onCancel={this.hanldleModalShow}
+            visible={this.state.modalVisible}
+            centered
+            footer={null}
+          >
             <PurchaseModal
               cart={this.props.cart}
               total={this.props.total}

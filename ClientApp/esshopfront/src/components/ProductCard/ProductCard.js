@@ -1,8 +1,16 @@
 import React from "react";
-import { Card, Typography, Skeleton } from "antd";
+import { Card, Typography, Skeleton, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 const { Meta } = Card;
 const { Title } = Typography;
+
+const openNotification = (productName) => {
+  notification.info({
+    message: `Info`,
+    description: `${productName} added to cart`,
+    placement: "bottomRight",
+  });
+};
 class ProductCard extends React.Component {
   render() {
     return (
@@ -27,6 +35,7 @@ class ProductCard extends React.Component {
             <PlusOutlined
               onClick={() => {
                 this.props.addToCart();
+                openNotification(this.props.name);
               }}
               key="add"
             />,

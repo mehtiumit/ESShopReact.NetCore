@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Menu, Row, Col, Input, Avatar, Modal, Button, Badge } from "antd";
+import { Menu, Row, Col, Input, Avatar, Modal } from "antd";
 import {
-  HomeOutlined,
   SearchOutlined,
   MenuFoldOutlined,
   HeartFilled,
@@ -19,7 +18,9 @@ import LoginForm from "../Auth/LoginForm";
 import RegisterForm from "../Auth/RegisterForm";
 import CartDrawer from "../Cart/CartDrawer";
 import CartWithProduct from "../Cart/CartWithProduct";
-import { ImSpades } from "react-icons/im";
+import { DiEnvato } from "react-icons/di";
+import { fetchProducts } from "../../redux/actions/productActions";
+
 class Navbar extends Component {
   state = {
     showProfile: false,
@@ -60,16 +61,16 @@ class Navbar extends Component {
     );
 
     let userText = (
-      <div style={{ marginLeft: "35%" }}>
+      <div style={{ marginLeft: "28%" }}>
         <span>
-          Üye değil misin ? <strong>Üye Ol</strong>
+          Don't have an account?<strong>Sign Up</strong>
         </span>
       </div>
     );
     let notUserText = (
-      <div style={{ marginLeft: "35%" }}>
+      <div style={{ marginLeft: "28%" }}>
         <span>
-          Üye misin ? <strong>Giriş Yap</strong>
+          Do you have an account?<strong>Sign in</strong>
         </span>
       </div>
     );
@@ -96,17 +97,35 @@ class Navbar extends Component {
     return (
       <Row>
         <Col span={8}>
-          <Menu theme="light" mode="horizontal">
-            <Menu.Item key="1">
-              <Link to="/">Home Page</Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to="/">Computers</Link>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <Link to="/">Gaming & Console</Link>
-            </Menu.Item>
-          </Menu>
+          <Row>
+            <Col span={2}>
+              <Row justify="center">
+                <DiEnvato size={32} style={{ marginTop: "1rem" }} />
+              </Row>
+            </Col>
+            <Col span={22}>
+              <Menu theme="light" mode="horizontal">
+                <Menu.Item
+                  key="1"
+                  onClick={() => this.props.getProductsByCategory()}
+                >
+                  <Link to="/">Home Page</Link>
+                </Menu.Item>
+                <Menu.Item
+                  key="2"
+                  onClick={() => this.props.getProductsByCategory(3)}
+                >
+                  <Link to="/">Computers</Link>
+                </Menu.Item>
+                <Menu.Item
+                  key="3"
+                  onClick={() => this.props.getProductsByCategory(1)}
+                >
+                  <Link to="/">Gaming & Console</Link>
+                </Menu.Item>
+              </Menu>
+            </Col>
+          </Row>
         </Col>
         <Col span={8}>
           <Input
@@ -167,6 +186,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUserData: (userId) => dispatch(getUserData(userId)),
+    getProductsByCategory: (categoryID) => dispatch(fetchProducts(categoryID)),
   };
 };
 

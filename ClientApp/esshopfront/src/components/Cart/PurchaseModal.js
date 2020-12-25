@@ -49,20 +49,11 @@ export default class PurchaseModal extends Component {
     });
   };
   render() {
-    const onFinish = () => {};
-    const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
-    };
     const { hover } = this.state;
     const { orderAdress, orderAmount, orderShipName } = this.state.purchase;
     return (
       <div style={{ marginTop: "5%", width: "auto", height: "auto" }}>
-        <Form
-          name="basic"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-        >
+        <Form name="basic" initialValues={{ remember: true }}>
           <Form.Item
             name="orderAdress"
             style={{ marginLeft: "20%", width: "296px", height: "42px" }}
